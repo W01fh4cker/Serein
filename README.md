@@ -62,6 +62,7 @@ https://github.com/W01fh4cker/Serein/issues
 ```
 
 # Version
+### >`V1.1`（增加ip反查域名功能，预计2022.6.1晚实现权重查询筛选）  
 ### >`V1.0`（采集意见版）
 
 # To-Do List
