@@ -25,9 +25,9 @@
 4. 如果您在使用中遇到任何问题、有活泼的想法，您有三种途径与我反馈交流：
 
 ```python
-mailto:[sharecat2022@gmail.com](mailto:sharecat2022@gmail.com)
+mailto:sharecat2022@gmail.com
 
-https://github.com/W01fh4cker/W01f-ssh-crack/issues
+https://github.com/W01fh4cker/Serein/issues
 
 添加微信：W01fh4cker
 ```
