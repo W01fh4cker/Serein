@@ -7,9 +7,9 @@
 
 # :milky_way:Interface-Display
 
-  ![image-20220531162042800](C:\Users\W01fh4cker\AppData\Roaming\Typora\typora-user-images\image-20220531162042800.png)
+  ![image-20220531162042800](https://www.png8.com/imgs/2022/05/31/65e84b099af1a536.png)
 
-![image-20220531163227247](C:\Users\W01fh4cker\AppData\Roaming\Typora\typora-user-images\image-20220531163227247.png)
+![image-20220531163227247](https://www.png8.com/imgs/2022/05/31/973722dfcc3ced7c.png)
 
 # :foggy:How-To-Use
 
