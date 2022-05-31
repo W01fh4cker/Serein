@@ -13,6 +13,34 @@
 
 ![image-20220531163227247](https://www.png8.com/imgs/2022/05/31/973722dfcc3ced7c.png)
 
+# Exploit-Example
+
+1. 我们想批量利用`向日葵RCE`漏洞，于是我们`base64加密`语句`body="Verification failure"`，得到：`Ym9keT0iVmVyaWZpY2F0aW9uIGZhaWx1cmUi`。
+
+2. 我们选取获取前100条：
+
+   ![image-20220531213726915](https://www.png8.com/imgs/2022/05/31/afa7e27c633103bc.png)
+
+   ![image-20220531213726915](https://www.png8.com/imgs/2022/05/31/131ba7f9968261d0.png)
+
+   ![image-20220531213726915](https://www.png8.com/imgs/2022/05/31/776bab3b4dbdef4a.png)
+
+   3. 直接点击`向日葵RCE一把梭`：
+
+      ![image-20220531213726915](https://www.png8.com/imgs/2022/05/31/cb3553eed09f13cc.png)
+
+   4. 可以看到软件开始批量检测了（可能会出现短时间的空白，请耐心等待程序运行）：
+
+      ![image-20220531213726915](https://www.png8.com/imgs/2022/05/31/9bffe6b41d0ba93f.png)
+
+      软件的线程数是`100`，可以自己对`exp`文件下的`xrk_rce.py`的第`58`行进行调整。（速度还是很快的）
+
+5. **删除文件夹下`urls.txt`、`修正后的url.txt`、`host.txt`这三个文件，准备使用其他一键梭哈模块：**
+
+   ![image-20220531213726915](https://www.png8.com/imgs/2022/05/31/e16e71a0fa2fee23.png)
+
+   ![image-20220531213726915](https://www.png8.com/imgs/2022/05/31/182de6a83f558bde.png)
+
 # How-To-Use
 
 1. ```python
@@ -20,9 +48,10 @@
    python3 Serein.py
    ```
 
-2. 点击左上角的`软件配置`配置`fofa`的`email`和`key`，然后就可以愉快地使用`fofa搜索`啦。
+2. 点击左上角的`软件配置`配置`fofa`的`email`和`key`（注意不是密码，而是`https://fofa.info/personalData`下方的`API KEY`），然后就可以愉快地使用`fofa搜索`啦。
 3. 搜集完成之后，软件的同级目录下会生成`urls.txt`、`修正后的url.txt`、`host.txt`，分别保存`采集的原始url`、添加了`http/https头的url`、`仅网站IP`。
-4. 如果您在使用中遇到任何问题、有活泼的想法，您有三种途径与我反馈交流：
+4. 完成一次扫描任务后，若要开启下一次扫描，请删除文件夹下`urls.txt`、`修正后的url.txt`、`host.txt`这三个文件。
+5. 如果您在使用中遇到任何问题、有活泼的想法，您有三种途径与我反馈交流：
 
 ```python
 mailto:sharecat2022@gmail.com
