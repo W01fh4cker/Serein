@@ -32,7 +32,8 @@ https://github.com/W01fh4cker/Serein/issues
 添加微信：W01fh4cker
 ```
 
-
+# Version
+### >1.0（采集意见版）
 
 # To-Do List
 1. 由于最近临近期末，时间很紧，所以匆忙写了三个`nday`的一键梭哈模块，考完试之后会加上`用友OA`等一大批`OA`、`DeDeCMS`等一大批`CMS`的的一键梭哈模块。目前预留的位置是`51`个，短时间看应该是够用的。
