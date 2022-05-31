@@ -1,0 +1,4 @@
+Pillow
+ttkbootstrap
+tkinter
+requests
