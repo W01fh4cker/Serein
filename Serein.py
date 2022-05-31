@@ -252,10 +252,6 @@ group4 = ttk.LabelFrame(frameTwo, text="日志记录模块",bootstyle="info")
 group4.grid(row=0,column=1,padx=10, pady=10)
 text4 = tk.Text(group4,width=130,height=40)
 text4.grid(column=4,padx=10,pady=10)
-
-def spring4shell_exp():
-    pass
-
 button2 = ttk.Button(group3,text="Spring4shell一把梭",command=spring4shell_gui,width=20,bootstyle="primary")
 button2.grid(row=0,column=0,padx=5,pady=5)
 button3 = ttk.Button(group3,text="海康威视RCE一把梭",command=hkv_rce_gui,width=20,bootstyle="primary")
