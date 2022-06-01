@@ -44,10 +44,12 @@
 # How-To-Use
 
 1. ```python
-   pip install -r requirements.txt
+   git clone https://github.com/W01fh4cker/Serein.git
+   cd Serein
+   pip3 install -r requirements.txt
    python3 Serein.py
    ```
-
+   
 2. 点击左上角的`软件配置`配置`fofa`的`email`和`key`（注意不是密码，而是`https://fofa.info/personalData`下方的`API KEY`），然后就可以愉快地使用`fofa搜索`啦。
 3. 搜集完成之后，软件的同级目录下会生成`urls.txt`、`修正后的url.txt`、`host.txt`，分别保存`采集的原始url`、添加了`http/https头的url`、`仅网站IP`。
 4. 完成一次扫描任务后，若要开启下一次扫描，请删除文件夹下`urls.txt`、`修正后的url.txt`、`host.txt`这三个文件。
