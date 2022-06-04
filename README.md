@@ -62,7 +62,8 @@ https://github.com/W01fh4cker/Serein/issues
 添加微信：W01fh4cker
 ```
 
-# Version
+# Version  
+### >`V1.2`（增加Actively Exploited Atlassian Confluence 0Day CVE-2022-26134的一键梭哈模块）  
 ### >`V1.1`（增加ip反查域名功能，2022.6.3凌晨已经实现了权重查询，但是运行会卡死，预计2022.6.3晚发布带有权重查询筛选的版本）  
 ### >`V1.0`（采集意见版）
 
