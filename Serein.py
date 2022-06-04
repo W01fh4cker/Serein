@@ -27,7 +27,7 @@ window.title("Serein 【一款多nday批量利用工具】     Copyright © 2022
 width = window.winfo_screenwidth()
 height = window.winfo_screenheight()
 window.geometry(f'{width}x{height}')
-window.resizable(0, 0)
+# window.resizable(0, 0)
 myappid = "W01f.Serein.1.0"
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 window.wm_iconbitmap('logo.ico')
