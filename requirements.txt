@@ -1,7 +1,8 @@
 Pillow
 ttkbootstrap
-tkinter
+tk
 requests
 fake-useragent
 threadpool
 tldextract
+bs4
