@@ -51,9 +51,10 @@
    ```
    
 2. 点击左上角的`软件配置`配置`fofa`的`email`和`key`（注意不是密码，而是`https://fofa.info/personalData`下方的`API KEY`），然后就可以愉快地使用`fofa搜索`啦。
-3. 搜集完成之后，软件的同级目录下会生成`urls.txt`、`修正后的url.txt`、`host.txt`，分别保存`采集的原始url`、添加了`http/https头的url`、`仅网站IP`。
-4. 完成一次扫描任务后，若要开启下一次扫描，请删除文件夹下`urls.txt`、`修正后的url.txt`、`host.txt`这三个文件。
-5. 如果您在使用中遇到任何问题、有活泼的想法，您有三种途径与我反馈交流：
+  **注意：必须是fofa普通/高级/企业账号，因为fofa注册会员调用api需要消耗f币，如果您是注册会员请确保您有f币，否则无法查询！**  
+4. 搜集完成之后，软件的同级目录下会生成`urls.txt`、`修正后的url.txt`、`host.txt`，分别保存`采集的原始url`、添加了`http/https头的url`、`仅网站IP`。
+5. 完成一次扫描任务后，若要开启下一次扫描，请删除文件夹下`urls.txt`、`修正后的url.txt`、`host.txt`这三个文件。
+6. 如果您在使用中遇到任何问题、有活泼的想法，您有三种途径与我反馈交流：
 
 ```python
 mailto:sharecat2022@gmail.com
