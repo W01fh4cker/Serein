@@ -27,7 +27,7 @@ window.title("Serein 【一款多nday批量利用工具】     Copyright © 2022
 width = window.winfo_screenwidth()
 height = window.winfo_screenheight()
 window.geometry(f'{width}x{height}')
-# window.resizable(0, 0)
+window.resizable(0, 0)
 myappid = "W01f.Serein.1.0"
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 window.wm_iconbitmap('logo.ico')
@@ -36,33 +36,43 @@ frameOne = ttk.Frame(window)
 frameTwo = ttk.Frame(window)
 frameThree = ttk.Frame(window)
 frameFour = ttk.Frame(window)
+frameFive = ttk.Frame(window)
+
 def show_about():
     showinfo("关于作者", "一个乡村爱好者，一个旅行爱好者 。\nCodes build our world.\n微信：W01fh4cker\nGitHub：http://github.com/W01fh4cker\nmy blog：http://www.w01f.org")
 def show_help():
     showinfo("遇到了问题？","请立即联系微信：W01fh4cker")
-def getConfig(section, key):
+def getFofaConfig(section, key):
     config = configparser.ConfigParser()
     a = os.path.split(os.path.realpath(__file__))
     path = 'fofa配置.conf'
     config.read(path)
     return config.get(section, key)
-def saveit_first():
+
+def getHunterConfig(section, key):
+    config = configparser.ConfigParser()
+    a = os.path.split(os.path.realpath(__file__))
+    path = 'hunter配置.conf'
+    config.read(path)
+    return config.get(section, key)
+
+def fofa_saveit_first():
     email = fofa_text1.get()
     key = fofa_text2.get()
     with open("fofa配置.conf","a+") as f:
         f.write(f"[data]\nemail={email}\nkey={key}")
         f.close()
-    showinfo("保存成功！","请继续使用fofa模块！下一次将自动读取，不再需要配置！")
-    text3.insert(END,f"【+】保存成功！请继续使用fofa模块！下一次将会自动读取，不再需要配置！您的email是：{email}；为保护您的隐私，api-key不会显示。")
+    showinfo("保存成功！","请继续使用fofa搜索模块！下一次将自动读取，不再需要配置！")
+    text3.insert(END,f"【+】保存成功！请继续使用fofa搜索模块！下一次将会自动读取，不再需要配置！您的email是：{email}；为保护您的隐私，api-key不会显示。")
     text3.see(END)
     fofa_info.destroy()
-def saveit_twice():
+def fofa_saveit_twice():
     global email_r,key_r
     if not os.path.exists("fofa配置.conf"):
-        saveit_first()
+        fofa_saveit_first()
     else:
-        email_r = getConfig("data", "email")
-        key_r = getConfig("data", "key")
+        email_r = getFofaConfig("data", "email")
+        key_r = getFofaConfig("data", "key")
 
 def fofa_info():
     global fofa_info,fofa_text1,fofa_text2,fofa_text3
@@ -77,9 +87,45 @@ def fofa_info():
     fofa_key = tk.StringVar(fofa_info,value="填email对应的key")
     fofa_text2 = ttk.Entry(fofa_info, bootstyle="success", width=30, textvariable=fofa_key)
     fofa_text2.grid(row=1, column=1, padx=5, pady=5)
-    button1 = ttk.Button(fofa_info, text="点击保存", command=saveit_twice, width=30, bootstyle="info")
+    button1 = ttk.Button(fofa_info, text="点击保存", command=fofa_saveit_twice, width=30, bootstyle="info")
     button1.grid(row=2, column=1, padx=5, pady=5)
     fofa_info.mainloop()
+
+def hunter_saveit_first():
+    hunter_apikey = hunter_text1.get()
+    hunter_cooki = hunter_text2.get()
+    with open("hunter配置.conf","a+") as f:
+        f.write(f"[data]\nhunter_api_key={hunter_apikey}\nhunter_cookie={hunter_cooki}")
+        f.close()
+    showinfo("保存成功！","请继续使用hunter搜索模块！下一次将自动读取，不再需要配置！")
+    text3.insert(END,f"【+】保存成功！请继续使用hunter搜索模块！下一次将会自动读取，不再需要配置！为保护您的隐私，鹰图平台的api-key和cookie不会显示。")
+    text3.see(END)
+    hunter_info.destroy()
+def hunter_saveit_twice():
+    global hunter_api_key,hunter_cookie
+    if not os.path.exists("hunter配置.conf"):
+        hunter_saveit_first()
+    else:
+        hunter_api_key = getHunterConfig("data", "hunter_api_key")
+        hunter_cookie = getHunterConfig("data", "hunter_cookie")
+
+def hunter_info():
+    global hunter_info,hunter_text1,hunter_text1,hunter_text2
+    hunter_info = tk.Tk()
+    hunter_info.title("hunter配置")
+    hunter_info.geometry('445x100')
+    hunter_info.resizable(0, 0)
+    hunter_info.iconbitmap('logo.ico')
+    hunter_api_key = tk.StringVar(hunter_info,value="填写hunter的api-key")
+    hunter_text1 = ttk.Entry(hunter_info, bootstyle="success", width=61, textvariable=hunter_api_key)
+    hunter_text1.grid(row=0, column=0, padx=5, pady=5)
+    hunter_cookie = tk.StringVar(hunter_info,value="填写经过base64加密后的hunter.qianxin.com的cookie\n(注意去掉末尾的等号)")
+    hunter_text2 = ttk.Entry(hunter_info, bootstyle="success", width=61, textvariable=hunter_cookie)
+    hunter_text2.grid(row=1, column=0, padx=5, pady=5)
+    hunter_button = ttk.Button(hunter_info, text="点击保存（若需修改配置，请自行修改当前目录下的【hunter配置.conf】）", command=hunter_saveit_twice, width=61, bootstyle="info")
+    hunter_button.grid(row=2, column=0, padx=5, pady=5)
+    hunter_info.mainloop()
+
 def app_proxy():
     showinfo("这个还没实现呢~","已经列入我的To-do List里面啦！")
 
@@ -87,6 +133,7 @@ menubar = ttk.Menu(window)
 loginmenu = ttk.Menu(menubar,tearoff=0)
 menubar.add_cascade(label='软件配置',menu=loginmenu)
 loginmenu.add_command(label='fofa配置',command=fofa_info)
+loginmenu.add_command(label='hunter配置',command=hunter_info)
 loginmenu.add_command(label='代理',command=app_proxy)
 aboutmenu = ttk.Menu(menubar,tearoff=0)
 menubar.add_cascade(label='关于与帮助',menu=aboutmenu)
@@ -98,7 +145,7 @@ exitmenu.add_command(label='点我退出',command=window.destroy)
 window.config(menu=menubar)
 
 def fofa():
-    saveit_twice()
+    fofa_saveit_twice()
     try:
         fofa_yf = text1.get()
         fofa_ts = text2.get()
@@ -109,15 +156,15 @@ def fofa():
         resp = requests.get(url, headers)
         if resp.status_code == -1:
             showerror('出错了！', '账号信息有误。请检查您的email和key是否填写正确！')
-            text3.insert(END, chars="[×]出错了！账号信息有误,请检查您的email和key是否填写正确！\n")
+            text3.insert(END, chars="【×】出错了！账号信息有误,请检查您的email和key是否填写正确！\n")
             text3.see(END)
         elif resp.status_code == -4:
             showerror('出错了！', '请求参数有误')
-            text3.insert(END, chars="[×]出错了！请求参数有误,请检查您的查询语句和查询条数是否填写正确（尤其是后者）！\n")
+            text3.insert(END, chars="【×】出错了！请求参数有误,请检查您的查询语句和查询条数是否填写正确（尤其是后者）！\n")
             text3.see(END)
         elif resp.status_code == -5:
             showerror('出错了！', '系统错误，请联系微信W01fh4cker！')
-            text3.insert(END, chars="[×]出错了！系统错误，请联系微信W01fh4cker！\n")
+            text3.insert(END, chars="【×】出错了！系统错误，请联系微信W01fh4cker！\n")
             text3.see(END)
         else:
             res = json.loads((resp.content).decode('utf-8'))
@@ -145,7 +192,7 @@ def fofa():
                         with open("修正后的url.txt", 'a+') as f:
                             f.write(newurl + '\n')
             showinfo('保存成功', '文件就在您的当前文件夹下，urls.txt是采集的所有url合集，修正后的url.txt里的url是全部加了http/https头的。')
-            text3.insert(END, chars="[+]保存成功！文件就在您的当前文件夹下，【urls.txt】是采集的所有url合集，【修正后的url.txt】里的url是全部加了http/https头的。\n")
+            text3.insert(END, chars="【+】保存成功！文件就在您的当前文件夹下，【urls.txt】是采集的所有url合集，【修正后的url.txt】里的url是全部加了http/https头的。\n")
             text3.see(END)
             f.close()
     except Exception as error:
@@ -157,6 +204,104 @@ def thread_fofa():
     t = threading.Thread(target=fofa)
     t.setDaemon(True)
     t.start()
+
+def hunter_query():
+    showinfo('开始采集', '程序开始采集url，请耐心等待，不要关闭程序。')
+    hunter_saveit_twice()
+    # try:
+    global i
+    global number
+    number = 1
+    i =0
+    api_key = hunter_api_key
+    query_sentence = text8.get()
+    hunter_pagenum_to_query = text9.get()
+    hunter_per_page_size = text10.get()
+    hunter_asset_type = text11.get()
+    hunter_start_time = text13.get()
+    hunter_end_time = text14.get()
+    hunter_status_code = text12.get()
+    url = 'https://hunter.qianxin.com/openApi/search?api-key=' + str(api_key) + '&search=' + str(
+        query_sentence) + '&page=' + str(hunter_pagenum_to_query) + '&page_size=' + str(hunter_per_page_size) + '&is_web=' + str(
+        hunter_asset_type) + '&start_time=' + str(hunter_start_time) + '&end_time' + str(hunter_end_time) + '&status_code=' + str(hunter_status_code)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36',
+        'Cookie': hunter_cookie
+    }
+    resp = requests.get(url=url, headers=headers)
+    global res
+    res = json.loads((resp.content).decode('utf-8'))
+    global first_url
+    hunter_res_num = res["data"]["total"]
+    text15.insert(END, chars=f"【*】当前共查询到{hunter_res_num}条数据。\n")
+    text15.see(END)
+    for i in range(len(res["data"]["arr"])):
+        if (hunter_res_num == 0):
+            text15.insert(END, chars="【*】当前共查询到0条数据。\n")
+            text15.see(END)
+            break
+        else:
+            try:
+                its_ip = res["data"]["arr"][i]["ip"]
+                its_url = res["data"]["arr"][i]["url"]
+                with open("urls.txt","a+") as m:
+                    m.write(its_url + "\n")
+                with open("host.txt","a+") as m:
+                    m.write(its_ip + "\n")
+                if its_ip is None:
+                    pass
+                else:
+                    first_url = str(its_url)
+            except:
+                i = i + 1
+    consume_quota = res["data"]["consume_quota"]
+    rest_quota = res["data"]["rest_quota"]
+    text17.insert(END,"【+】" + consume_quota + "\n【+】" + rest_quota + "\n")
+    showinfo('保存成功', '文件就在您的当前文件夹下，urls.txt是采集的所有url合集，修正后的url.txt里的url是全部加了http/https头的。')
+    text15.insert(END, chars="【+】保存成功！文件就在您的当前文件夹下，【urls.txt】是采集的所有url合集，【修正后的url.txt】里的url是全部加了http/https头的。\n")
+    text15.see(END)
+    # except:
+    #     showerror("出错了！","请检查您的base64前的语句是否正确（比如英文双引号打成了中文双引号，或者查询到的数据是0条）；\n若确实没问题，请立即联系微信W01fh4cker！")
+    #     text15.insert(END, chars="【×】出错了！请检查您的base64前的语句是否正确（比如英文双引号打成了中文双引号，或者查询到的数据是0条）；若确实没问题，请立即联系微信W01fh4cker！\n")
+    #     text15.see(END)
+# 判断api调用时候的状态码
+def check_code():
+    if (res["code"] == 200):
+        pass
+    elif (res["code"] == 401):
+        text15.insert(END,"【×】起始/结束时间参数格式错误，格式应为2021-01-01 00:00:00\n")
+        text15.see(END)
+    elif (res["code"] == 401):
+        text15.insert(END,"【×】无权限，请检查您的api-key和cookie是否填写正确！\n")
+        text15.see(END)
+    else:
+        text15.insert(END,"【×】其他错误，请立即联系微信W01fh4cker\n")
+        text15.see(END)
+#保存初步的url到文件
+def save_url():
+    with open("urls.txt", 'a+', encoding='utf-8') as f:
+        f.write(first_url + '\n')
+#判断url前面有没有http/https头，如果没有就加上http://
+def check_url_format():
+    with open("urls.txt",'r') as f:
+        ln = f.readlines()
+        for j in ln:
+            url = j.strip()
+            if url[:7] == 'http://' or url[:8] == 'https://':
+                pass
+            else:
+                url = 'http://' + str(url)
+                with open("修正后的url.txt",'w') as h:
+                    h.write(url + '\n')
+def hunter():
+    # try:
+    hunter_query()
+    check_code()
+    save_url()
+    check_url_format()
+    # except:
+    #     text15.insert(END,"【×】出错了！请先自查您的搜索语法、配置文件填写是否有问题！如果确认无误，请立即联系微信W01fh4cker或者提出issues！\n")
+    #     text15.see(END)
 
 group1 = ttk.LabelFrame(frameOne, text="fofa搜索模块",bootstyle="info")
 group1.grid(row=0,column=0,padx=10, pady=10)
@@ -257,6 +402,45 @@ title!="powered by" && body=discuz
 剩下来，就是发挥你想象力的时候了 ；）""")
 text5.config(state='disabled')
 text5.grid(row=0, column=0, padx=10, pady=10)
+notebook.add(frameFive, text='hunter搜索')
+group9 = ttk.LabelFrame(frameFive, text="hunter搜索模块",bootstyle="info")
+group9.grid(row=0,column=0,padx=5, pady=5)
+hunter_query_sentence = tk.StringVar(group9, value="填写加密后的hunter语句")
+text8 = ttk.Entry(group9, bootstyle="success", width=45, textvariable=hunter_query_sentence)
+text8.grid(row=0, column=0, padx=5, pady=5)
+hunter_pagenum_to_query = tk.StringVar(group9, value="填写想要查询数据的页码")
+text9 = ttk.Entry(group9, bootstyle="success", width=35, textvariable=hunter_pagenum_to_query)
+text9.grid(row=0, column=1, padx=5, pady=5)
+hunter_per_page_size = tk.StringVar(group9, value="填写想要查询这一页数据的条数")
+text10 = ttk.Entry(group9, bootstyle="success", width=35, textvariable=hunter_per_page_size)
+text10.grid(row=0, column=2, padx=5, pady=5)
+hunter_asset_type = tk.StringVar(group9, value="填写资产类型，1代表”web资产“，2代表”非web资产“，3代表”全部“")
+text11 = ttk.Entry(group9, bootstyle="success", width=52, textvariable=hunter_asset_type)
+text11.grid(row=0, column=3, padx=5, pady=5)
+hunter_status_code_select = tk.StringVar(group9, value="状态码列表，以逗号分隔，如”200“")
+text12 = ttk.Entry(group9, bootstyle="success", width=45, textvariable=hunter_status_code_select)
+text12.grid(row=1, column=0, padx=5, pady=5)
+hunter_start_time = tk.StringVar(group9, value="开始时间，格式为2021-01-01 00:00:00")
+text13 = ttk.Entry(group9, bootstyle="success", width=35, textvariable=hunter_start_time)
+text13.grid(row=1, column=1, padx=5, pady=5)
+hunter_end_time = tk.StringVar(group9, value="结束时间，格式为2022-01-01 00:00:00")
+text14 = ttk.Entry(group9, bootstyle="success", width=35, textvariable=hunter_end_time)
+text14.grid(row=1, column=2, padx=5, pady=5)
+hunter_query_button = ttk.Button(group9,text="点击查询",command=hunter,width=51,bootstyle="primary")
+hunter_query_button.grid(row=1,column=3,columnspan=2,padx=5,pady=5)
+text15 = scrolledtext.ScrolledText(group9,width=178, height=15)
+text15.grid(row=2,column=0,columnspan=4,padx=5,pady=5)
+group10 = ttk.LabelFrame(frameFive, text="hunter查询语法参考",bootstyle="info")
+group10.grid(row=1,column=0,padx=5, pady=5)
+text16 = scrolledtext.ScrolledText(group10,width=178, height=19)
+text16.grid(row=0,column=0,padx=5,pady=5)
+text16.insert(END,"【+】语法查询请参考文档：https://hunter.qianxin.com/home/helpCenter?r=2-2\n")
+text16.see(END)
+group11 = ttk.LabelFrame(frameFive, text="hunter积分明细",bootstyle="info")
+group11.grid(row=0,rowspan=2,column=1,padx=5, pady=5)
+text17 = scrolledtext.ScrolledText(group11,width=23, height=42)
+text17.grid(row=0,column=0,padx=5,pady=5)
+
 notebook.add(frameTwo, text='nday利用集合')
 group3 = ttk.LabelFrame(frameTwo, text="nday一键利用模块",bootstyle="info")
 group3.grid(row=0,column=0,padx=10, pady=10)
