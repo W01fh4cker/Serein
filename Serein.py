@@ -8,6 +8,7 @@ from exp.CVE_2022_26134 import *
 from exp.yync_rce import *
 from exp.shiro import *
 from exp.yyu8_testsql import *
+from exp.CVE_2022_23337 import *
 import json
 import threading
 from tkinter.messagebox import *
@@ -466,6 +467,8 @@ button7 = ttk.Button(group3,text="shiro一把梭",command=shiro_gui,width=20,boo
 button7.grid(row=2,column=0,padx=5,pady=5)
 button8 = ttk.Button(group3,text="用友U8 sql注入一把梭",command=yyu8_testsql_gui,width=20,bootstyle="warning")
 button8.grid(row=2,column=1,padx=5,pady=5)
+button9 = ttk.Button(group3,text="Dede v5.7.87 SQL注入一把梭",command=dedesql_gui,width=23,bootstyle="warning")
+button9.grid(row=2,column=2,padx=5,pady=5)
 notebook.add(frameThree, text='IP反查域名+权重查询')
 # ip138
 def ip138_chaxun(ip, ua):
