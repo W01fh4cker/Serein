@@ -5,6 +5,8 @@ from exp.spring4shell_exp import *
 from exp.hkv_rce import *
 from exp.xrk_rce import *
 from exp.CVE_2022_26134 import *
+from exp.yync_rce import *
+from exp.shiro import *
 import json
 import threading
 from tkinter.messagebox import *
@@ -455,8 +457,12 @@ button3 = ttk.Button(group3,text="海康威视RCE一把梭",command=hkv_rce_gui,
 button3.grid(row=0,column=1,padx=5,pady=5)
 button4 = ttk.Button(group3,text="向日葵RCE一把梭",command=xrk_rce_gui,width=20,bootstyle="primary")
 button4.grid(row=0,column=2,padx=5,pady=5)
-button5 = ttk.Button(group3,text="ConfulenceONGL RCE一把梭",command=confluence_gui,width=45,bootstyle="primary")
+button5 = ttk.Button(group3,text="ConfulenceONGL RCE一把梭",command=confluence_gui,width=45,bootstyle="info")
 button5.grid(row=1,columnspan=2,padx=5,pady=5)
+button6 = ttk.Button(group3,text="用友NC RCE一把梭",command=yync_rce_gui,width=20,bootstyle="info")
+button6.grid(row=1,column=2,padx=5,pady=5)
+button7 = ttk.Button(group3,text="shiro一把梭",command=shiro_gui,width=20,bootstyle="warning")
+button7.grid(row=2,column=0,padx=5,pady=5)
 notebook.add(frameThree, text='IP反查域名+权重查询')
 # ip138
 def ip138_chaxun(ip, ua):
