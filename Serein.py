@@ -5,6 +5,10 @@ from exp.spring4shell_exp import *
 from exp.hkv_rce import *
 from exp.xrk_rce import *
 from exp.CVE_2022_26134 import *
+from exp.yync_rce import *
+from exp.shiro import *
+from exp.yyu8_testsql import *
+from exp.CVE_2022_23337 import *
 import json
 import threading
 from tkinter.messagebox import *
@@ -455,8 +459,16 @@ button3 = ttk.Button(group3,text="海康威视RCE一把梭",command=hkv_rce_gui,
 button3.grid(row=0,column=1,padx=5,pady=5)
 button4 = ttk.Button(group3,text="向日葵RCE一把梭",command=xrk_rce_gui,width=20,bootstyle="primary")
 button4.grid(row=0,column=2,padx=5,pady=5)
-button5 = ttk.Button(group3,text="ConfulenceONGL RCE一把梭",command=confluence_gui,width=45,bootstyle="primary")
+button5 = ttk.Button(group3,text="ConfulenceONGL RCE一把梭",command=confluence_gui,width=45,bootstyle="info")
 button5.grid(row=1,columnspan=2,padx=5,pady=5)
+button6 = ttk.Button(group3,text="用友NC RCE一把梭",command=yync_rce_gui,width=20,bootstyle="info")
+button6.grid(row=1,column=2,padx=5,pady=5)
+button7 = ttk.Button(group3,text="shiro RCE一把梭",command=shiro_gui,width=20,bootstyle="warning")
+button7.grid(row=2,column=0,padx=5,pady=5)
+button8 = ttk.Button(group3,text="用友U8 sql注入一把梭",command=yyu8_testsql_gui,width=20,bootstyle="warning")
+button8.grid(row=2,column=1,padx=5,pady=5)
+button9 = ttk.Button(group3,text="Dede v5.7.87 SQL注入一把梭",command=dedesql_gui,width=23,bootstyle="warning")
+button9.grid(row=2,column=2,padx=5,pady=5)
 notebook.add(frameThree, text='IP反查域名+权重查询')
 # ip138
 def ip138_chaxun(ip, ua):
@@ -724,7 +736,7 @@ encode_text = scrolledtext.ScrolledText(group7, width=100, height=30)
 encode_text.grid(row=2, column=0, padx=10, pady=10)
 encode_text2 = scrolledtext.ScrolledText(group8, width=100, height=30)
 encode_text2.grid(row=2, column=1, padx=10, pady=10)
-encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==""")
+encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="Apache-Shiro" && header="rememberme=deleteMe"】的加密结果为YXBwPSJBcGFjaGUtU2hpcm8iICYmIGhlYWRlcj0icmVtZW1iZXJtZT1kZWxldGVNZSI=""")
 encode_text2.see(END)
 encode_text2.config(state="disabled")
 def base64_dec():
