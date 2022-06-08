@@ -248,7 +248,7 @@ def hunter_query():
             try:
                 its_ip = res["data"]["arr"][i]["ip"]
                 its_url = res["data"]["arr"][i]["url"]
-                with open("urls.txt","a+") as m:
+                with open("修正后的url.txt","a+") as m:
                     m.write(its_url + "\n")
                 with open("host.txt","a+") as m:
                     m.write(its_ip + "\n")
@@ -283,11 +283,11 @@ def check_code():
         text15.see(END)
 #保存初步的url到文件
 def save_url():
-    with open("urls.txt", 'a+', encoding='utf-8') as f:
+    with open("修正后的url.txt", 'a+', encoding='utf-8') as f:
         f.write(first_url + '\n')
 #判断url前面有没有http/https头，如果没有就加上http://
 def check_url_format():
-    with open("urls.txt",'r') as f:
+    with open("修正后的url.txt",'r') as f:
         ln = f.readlines()
         for j in ln:
             url = j.strip()
