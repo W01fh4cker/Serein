@@ -25,7 +25,8 @@
 
 ![image-20220606034329787](https://www.png8.com/imgs/2022/06/06/7308945f7980ff60.png)
 
-# Exploit-Example | 利用示例
+# Exploit-Example | 利用示例  
+**我已经录制了使用视频，并且上传到了B站：https://www.bilibili.com/video/bv1Dv4y137Lu**  
 
 1. 我们想批量利用`向日葵RCE`漏洞，于是我们`base64加密`语句`body="Verification failure"`，得到：`Ym9keT0iVmVyaWZpY2F0aW9uIGZhaWx1cmUi`。
 
