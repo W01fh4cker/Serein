@@ -1,12 +1,11 @@
 import configparser
 import ctypes
-import base64
 from exp.spring4shell_exp import *
 from exp.hkv_rce import *
 from exp.xrk_rce import *
 from exp.CVE_2022_26134 import *
 from exp.yync_rce import *
-from exp.shiro import *
+from exp.sonicwall_ssl_vpn import *
 from exp.yyu8_testsql import *
 from exp.CVE_2022_23337 import *
 import json
@@ -26,6 +25,7 @@ import tldextract
 from fake_useragent import UserAgent
 import os
 import requests
+import base64
 window = tk.Tk()
 window.title("Serein 【一款多nday批量利用工具】     Copyright © 2022     By: W01fh4cker     Blog: http://www.w01f.org     【*****************免责声明：软件仅限在所检测网站授权范围内使用，禁止使用该软件进行违法操作，否则后果自负！*****************】")
 width = window.winfo_screenwidth()
@@ -248,7 +248,7 @@ def hunter_query():
             try:
                 its_ip = res["data"]["arr"][i]["ip"]
                 its_url = res["data"]["arr"][i]["url"]
-                with open("urls.txt","a+") as m:
+                with open("修正后的url.txt","a+") as m:
                     m.write(its_url + "\n")
                 with open("host.txt","a+") as m:
                     m.write(its_ip + "\n")
@@ -283,11 +283,11 @@ def check_code():
         text15.see(END)
 #保存初步的url到文件
 def save_url():
-    with open("urls.txt", 'a+', encoding='utf-8') as f:
+    with open("修正后的url.txt", 'a+', encoding='utf-8') as f:
         f.write(first_url + '\n')
 #判断url前面有没有http/https头，如果没有就加上http://
 def check_url_format():
-    with open("urls.txt",'r') as f:
+    with open("修正后的url.txt",'r') as f:
         ln = f.readlines()
         for j in ln:
             url = j.strip()
@@ -463,12 +463,12 @@ button5 = ttk.Button(group3,text="ConfulenceONGL RCE一把梭",command=confluenc
 button5.grid(row=1,columnspan=2,padx=5,pady=5)
 button6 = ttk.Button(group3,text="用友NC RCE一把梭",command=yync_rce_gui,width=20,bootstyle="info")
 button6.grid(row=1,column=2,padx=5,pady=5)
-button7 = ttk.Button(group3,text="shiro RCE一把梭",command=shiro_gui,width=20,bootstyle="warning")
-button7.grid(row=2,column=0,padx=5,pady=5)
+button7 = ttk.Button(group3,text="SonicWall SSL-VPN RCE一把梭",command=sonicwall_ssl_vpn_gui,width=45,bootstyle="warning")
+button7.grid(row=2,columnspan=2,padx=5,pady=5)
 button8 = ttk.Button(group3,text="用友U8 sql注入一把梭",command=yyu8_testsql_gui,width=20,bootstyle="warning")
-button8.grid(row=2,column=1,padx=5,pady=5)
-button9 = ttk.Button(group3,text="Dede v5.7.87 SQL注入一把梭",command=dedesql_gui,width=23,bootstyle="warning")
-button9.grid(row=2,column=2,padx=5,pady=5)
+button8.grid(row=2,column=2,padx=5,pady=5)
+button9 = ttk.Button(group3,text="Dede v5.7.87 SQL注入一把梭",command=dedesql_gui,width=45,bootstyle="warning")
+button9.grid(row=3,columnspan=2,padx=5,pady=5)
 notebook.add(frameThree, text='IP反查域名+权重查询')
 # ip138
 def ip138_chaxun(ip, ua):
@@ -736,7 +736,7 @@ encode_text = scrolledtext.ScrolledText(group7, width=100, height=30)
 encode_text.grid(row=2, column=0, padx=10, pady=10)
 encode_text2 = scrolledtext.ScrolledText(group8, width=100, height=30)
 encode_text2.grid(row=2, column=1, padx=10, pady=10)
-encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="Apache-Shiro" && header="rememberme=deleteMe"】的加密结果为YXBwPSJBcGFjaGUtU2hpcm8iICYmIGhlYWRlcj0icmVtZW1iZXJtZT1kZWxldGVNZSI=""")
+encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="Apache-Shiro" && header="rememberme=deleteMe"】的加密结果为YXBwPSJBcGFjaGUtU2hpcm8iICYmIGhlYWRlcj0icmVtZW1iZXJtZT1kZWxldGVNZSI=\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n""")
 encode_text2.see(END)
 encode_text2.config(state="disabled")
 def base64_dec():

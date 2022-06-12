@@ -5,8 +5,10 @@
 
 1. 该项目仅供授权下使用，禁止使用该项目进行违法操作，否则自行承担后果，请各位遵守《中华人民共和国网络安全法》！！！
 2. 由于是短时间熬夜所写，头脑昏昏，料想会有不少错误，欢迎指出，我的联系方式在下方已经贴出，不胜感激！  
-3. **计划每天增加一个漏洞利用模块，所以欢迎`star/fork`，您的每一个`star`和`fork`都是我前进的动力！**
-# Version | 版本  
+3. **计划七月份每天增加一个漏洞利用模块，所以欢迎`star/fork`，您的每一个`star`和`fork`都是我前进的动力！**
+# Version | 版本
+#### >`V1.5`（删除了`shiro`一键梭哈模块，增加了【`SonicWall SSL-VPN 远程命令执行`】的一键梭哈模块；录制使用视频，并且上传到了B站：https://www.bilibili.com/video/bv1Dv4y137Lu 【2022.6.11】）
+
 #### >`V1.4`（增加了【`shiro`、`用友NC RCE`、`用友U8 OA sql注入`、`DedeCMS v5.7.87 SQL注入 CVE-2022-23337`】的一键梭哈模块。【2022.6.6白天-6.7凌晨】）  
 #### >`V1.3`（增加了奇安信`Hunter`网络空间测绘模块【2022.6.6凌晨】）  
 #### >`V1.2`（增加`Actively Exploited Atlassian Confluence 0Day CVE-2022-26134`的一键梭哈模块【2022.6.4】）  
@@ -15,15 +17,17 @@
 
 # Latest-Interface-Display | 最新版页面展示
 
-  ![1](https://www.png8.com/imgs/2022/06/06/1dfe079e9efaf53e.png)
+  ![0](https://www.png8.com/imgs/2022/06/11/6671c1ed96fe6f6e.png)
 
-![2](https://www.png8.com/imgs/2022/06/06/8c5b9abba00cfb1e.png)
+![1](https://www.png8.com/imgs/2022/06/11/5b7bd100606568c0.png)
 
-![image-20220606034232108](https://www.png8.com/imgs/2022/06/06/822ba7e7557d322f.png)
+![2](https://www.png8.com/imgs/2022/06/11/392a6204758921cf.png)
 
-![image-20220606034304418](https://www.png8.com/imgs/2022/06/06/3dd518e3c559a93d.png)
+![3](https://www.png8.com/imgs/2022/06/11/5337344a430bab80.png)
 
-![image-20220606034329787](https://www.png8.com/imgs/2022/06/06/7308945f7980ff60.png)
+![4](https://www.png8.com/imgs/2022/06/11/89c22e692ade5304.png)
+
+![5](https://www.png8.com/imgs/2022/06/11/1a5322e497068bd2.png)
 
 # Exploit-Example | 利用示例
 
@@ -55,6 +59,8 @@
 
 # How-To-Use | 如何使用
 
+**我已经录制了使用视频，并且上传到了B站：https://www.bilibili.com/video/bv1Dv4y137Lu**
+
 1. ```python
    git clone https://github.com/W01fh4cker/Serein.git
    cd Serein
@@ -65,9 +71,8 @@
 2. 点击左上角的`软件配置`配置`fofa`的`email`和`key`（注意不是密码，而是`https://fofa.info/personalData`下方的`API KEY`），然后就可以愉快地使用`fofa搜索`啦。
     **注意：必须是fofa普通/高级/企业账号，因为`fofa`注册会员调用`api`需要消耗`f`币，如果您是注册会员请确保您有`f`币，否则无法查询！**  
 4. 搜集完成之后，软件的同级目录下会生成`urls.txt`、`修正后的url.txt`、`host.txt`，分别保存`采集的原始url`、添加了`http/https头的url`、`仅网站IP`。
-5. 完成一次扫描任务后，若要开启下一次扫描，**请删除文件夹下`urls.txt`、`修正后的url.txt`、`host.txt`这三个文件。**  
-6. **如果你想扫描`DedeCMS v5.7.87 SQL注入 CVE-2022-23337`，请自己利用`url语法`采集`url`，并严格以`http://www.example.com`为范例、一行一个放到【修正后的url.txt】中。**  
-7. 如果您在使用中遇到任何问题、有活泼的想法，您有三种途径与我反馈交流：
+5. 完成一次扫描任务后，若要开启下一次扫描，请删除文件夹下`urls.txt`、`修正后的url.txt`、`host.txt`这三个文件。
+6. 如果您在使用中遇到任何问题、有活泼的想法，您有三种途径与我反馈交流：
 
 ```python
 mailto:sharecat2022@gmail.com
@@ -80,6 +85,6 @@ https://github.com/W01fh4cker/Serein/issues
 
 # To-Do List | 要做的事儿
 1. 由于最近临近期末，时间很紧，所以匆忙写了三个`nday`的一键梭哈模块，考完试之后会加上`用友OA`等一大批`OA`、`DeDeCMS`等一大批`CMS`的的一键梭哈模块。目前预留的位置是`51`个，短时间看应该是够用的。
-2. **（优先）添加检查权重模块。当我们一键梭哈完之后，想提交补天等漏洞平台的时候，由于平台有权重要求，所以要对含有漏洞的网站需要进行`ip-->domain`，然后反查域名，利用多个查询接口进行权重查询，筛选出符合权重要求的网站，导出出来。**
-3. 添加其他的搜索引擎，如：`Hunter`、`Quake`等。 
-4. 其他的暂时还没想到，如果小伙伴们有什么想法可以直接在`issues`里面提出。
+2. **完善权重查询模块。当我们一键梭哈完之后，想提交补天等漏洞平台的时候，由于平台有权重要求，所以要对含有漏洞的网站需要进行`ip-->domain`，然后反查域名，利用多个查询接口进行权重查询，筛选出符合权重要求的网站，导出出来。**
+3. （优先）添加其他的搜索引擎，如：`shodan`、`zoomeye`、`Quake`等。 
+4.  其他的暂时还没想到，如果小伙伴们有什么想法可以直接在`issues`里面提出。

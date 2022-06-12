@@ -11,7 +11,7 @@ def yync_exp(url):
         if "BeanShell" in res.text:
             yync_rce_text.insert(END,"【*】存在漏洞的url：" + url + "\n")
             yync_rce_text.see(END)
-            with open ("存在用友NC命令执行漏洞.txt", 'a') as f:
+            with open ("存在用友NC命令执行漏洞的url.txt", 'a') as f:
                 f.write(url + "\n")
     except:
         pass

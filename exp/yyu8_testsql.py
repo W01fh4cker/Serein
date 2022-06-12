@@ -25,7 +25,7 @@ def yyu8_testsql_gui():
     yyu8_testsql.geometry("910x450")
     yyu8_testsql.title("用友 U8 OA test.jsp SQL注入漏洞一把梭")
     yyu8_testsql.resizable(0, 0)
-    # yyu8_testsql.iconbitmap('logo.ico')
+    yyu8_testsql.iconbitmap('logo.ico')
     global yyu8_testsql_text
     yyu8_testsql_text = scrolledtext.ScrolledText(yyu8_testsql,width=123, height=25)
     yyu8_testsql_text.grid(row=0, column=0, padx=10, pady=10)
