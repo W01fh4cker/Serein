@@ -87,4 +87,8 @@ https://github.com/W01fh4cker/Serein/issues
 1. 由于最近临近期末，时间很紧，所以匆忙写了三个`nday`的一键梭哈模块，考完试之后会加上`用友OA`等一大批`OA`、`DeDeCMS`等一大批`CMS`的的一键梭哈模块。目前预留的位置是`51`个，短时间看应该是够用的。
 2. **完善权重查询模块。当我们一键梭哈完之后，想提交补天等漏洞平台的时候，由于平台有权重要求，所以要对含有漏洞的网站需要进行`ip-->domain`，然后反查域名，利用多个查询接口进行权重查询，筛选出符合权重要求的网站，导出出来。**
 3. （优先）添加其他的搜索引擎，如：`shodan`、`zoomeye`、`Quake`等。 
-4.  其他的暂时还没想到，如果小伙伴们有什么想法可以直接在`issues`里面提出。
+4.  其他的暂时还没想到，如果小伙伴们有什么想法可以直接在`issues`里面提出。  
+# My Community  
+## > `https://discord.gg/n2c5Eaw4Jx` <  
+
+![image](https://user-images.githubusercontent.com/101872898/173513465-5c43767a-5dcd-4aa5-83ee-d7ea5c757bbb.png)
