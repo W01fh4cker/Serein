@@ -8,6 +8,9 @@ from exp.yync_rce import *
 from exp.sonicwall_ssl_vpn import *
 from exp.yyu8_testsql import *
 from exp.CVE_2022_23337 import *
+from exp.f5_big_ip import *
+from exp.harbor import *
+from exp.dvr_login_bypass import *
 import json
 import threading
 from tkinter.messagebox import *
@@ -67,7 +70,7 @@ def fofa_saveit_first():
         f.write(f"[data]\nemail={email}\nkey={key}")
         f.close()
     showinfo("保存成功！","请继续使用fofa搜索模块！下一次将自动读取，不再需要配置！")
-    text3.insert(END,f"【+】保存成功！请继续使用fofa搜索模块！下一次将会自动读取，不再需要配置！您的email是：{email}；为保护您的隐私，api-key不会显示。")
+    text3.insert(END,f"【+】保存成功！请继续使用fofa搜索模块！下一次将会自动读取，不再需要配置！您的email是：{email}；为保护您的隐私，api-key不会显示。\n")
     text3.see(END)
     fofa_info.destroy()
 def fofa_saveit_twice():
@@ -102,8 +105,8 @@ def hunter_saveit_first():
         f.write(f"[data]\nhunter_api_key={hunter_apikey}\nhunter_cookie={hunter_cooki}")
         f.close()
     showinfo("保存成功！","请继续使用hunter搜索模块！下一次将自动读取，不再需要配置！")
-    text3.insert(END,f"【+】保存成功！请继续使用hunter搜索模块！下一次将会自动读取，不再需要配置！为保护您的隐私，鹰图平台的api-key和cookie不会显示。")
-    text3.see(END)
+    text15.insert(END,f"【+】保存成功！请继续使用hunter搜索模块！下一次将会自动读取，不再需要配置！为保护您的隐私，鹰图平台的api-key和cookie不会显示。\n")
+    text15.see(END)
     hunter_info.destroy()
 def hunter_saveit_twice():
     global hunter_api_key,hunter_cookie
@@ -448,10 +451,10 @@ text17.grid(row=0,column=0,padx=5,pady=5)
 notebook.add(frameTwo, text='nday利用集合')
 group3 = ttk.LabelFrame(frameTwo, text="nday一键利用模块",bootstyle="info")
 group3.grid(row=0,column=0,padx=10, pady=10)
-group4 = ttk.LabelFrame(frameTwo, text="日志记录模块",bootstyle="info")
-group4.grid(row=0,column=1,padx=10, pady=10)
-text4 = tk.Text(group4,width=130,height=40)
-text4.grid(column=4,padx=10,pady=10)
+# group4 = ttk.LabelFrame(frameTwo, text="日志记录模块",bootstyle="info")
+# group4.grid(row=0,column=1,padx=10, pady=10)
+# text4 = tk.Text(group4,width=130,height=40)
+# text4.grid(column=4,padx=10,pady=10)
 
 button2 = ttk.Button(group3,text="Spring4shell一把梭",command=spring4shell_gui,width=20,bootstyle="primary")
 button2.grid(row=0,column=0,padx=5,pady=5)
@@ -462,13 +465,19 @@ button4.grid(row=0,column=2,padx=5,pady=5)
 button5 = ttk.Button(group3,text="ConfulenceONGL RCE一把梭",command=confluence_gui,width=45,bootstyle="info")
 button5.grid(row=1,columnspan=2,padx=5,pady=5)
 button6 = ttk.Button(group3,text="用友NC RCE一把梭",command=yync_rce_gui,width=20,bootstyle="info")
-button6.grid(row=1,column=2,padx=5,pady=5)
+button6.grid(row=0,column=3,padx=5,pady=5)
 button7 = ttk.Button(group3,text="SonicWall SSL-VPN RCE一把梭",command=sonicwall_ssl_vpn_gui,width=45,bootstyle="warning")
-button7.grid(row=2,columnspan=2,padx=5,pady=5)
-button8 = ttk.Button(group3,text="用友U8 sql注入一把梭",command=yyu8_testsql_gui,width=20,bootstyle="warning")
-button8.grid(row=2,column=2,padx=5,pady=5)
+button7.grid(row=1,column=2,columnspan=2,padx=5,pady=5)
+button8 = ttk.Button(group3,text="用友 U8 OA test.jsp SQL注入一把梭",command=yyu8_testsql_gui,width=45,bootstyle="warning")
+button8.grid(row=0,column=4,padx=5,pady=5)
 button9 = ttk.Button(group3,text="Dede v5.7.87 SQL注入一把梭",command=dedesql_gui,width=45,bootstyle="warning")
-button9.grid(row=3,columnspan=2,padx=5,pady=5)
+button9.grid(row=1,column=4,columnspan=2,padx=5,pady=5)
+button10 = ttk.Button(group3,text="F5 BIG-IP 远程代码执行漏洞一把梭",command=f5_big_ip_gui,width=45,bootstyle="primary")
+button10.grid(row=2,columnspan=2,padx=5,pady=5)
+button10 = ttk.Button(group3,text="Harbor 未授权创建管理员漏洞一把梭(存在漏洞的比较少，但是fofa可以采集到14万的网址，还是添加进来了)",command=harbor_gui,width=45,bootstyle="primary")
+button10.grid(row=2,column=2,columnspan=2,padx=5,pady=5)
+button10 = ttk.Button(group3,text="DVR 登录绕过漏洞(CVE-2018-9995)一把梭",command=dvr_login_bypass_gui,width=45,bootstyle="primary")
+button10.grid(row=2,column=4,columnspan=2,padx=5,pady=5)
 notebook.add(frameThree, text='IP反查域名+权重查询')
 # ip138
 def ip138_chaxun(ip, ua):
@@ -736,7 +745,7 @@ encode_text = scrolledtext.ScrolledText(group7, width=100, height=30)
 encode_text.grid(row=2, column=0, padx=10, pady=10)
 encode_text2 = scrolledtext.ScrolledText(group8, width=100, height=30)
 encode_text2.grid(row=2, column=1, padx=10, pady=10)
-encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="Apache-Shiro" && header="rememberme=deleteMe"】的加密结果为YXBwPSJBcGFjaGUtU2hpcm8iICYmIGhlYWRlcj0icmVtZW1iZXJtZT1kZWxldGVNZSI=\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n""")
+encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="Apache-Shiro" && header="rememberme=deleteMe"】的加密结果为YXBwPSJBcGFjaGUtU2hpcm8iICYmIGhlYWRlcj0icmVtZW1iZXJtZT1kZWxldGVNZSI=\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n【icon_hash="-335242539"】的加密结果为aWNvbl9oYXNoPSItMzM1MjQyNTM5Ig==\n【title="Harbor"】的加密结果为dGl0bGU9IkhhcmJvciI=\n""")
 encode_text2.see(END)
 encode_text2.config(state="disabled")
 def base64_dec():

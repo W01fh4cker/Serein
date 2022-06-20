@@ -16,6 +16,7 @@ def sonicwall_ssl_vpn_verify(url):
         if r.status_code == 200 and 'root:' in r.text:
             sonicwall_ssl_vpn_text.insert(END, "【！！！！！！】存在漏洞的url：" + url + "\n")
             sonicwall_ssl_vpn_text.see(END)
+            return 1
         else:
             sonicwall_ssl_vpn_text.insert(END, "【×××】不存在漏洞的url：" + url + "\n")
             sonicwall_ssl_vpn_text.see(END)
