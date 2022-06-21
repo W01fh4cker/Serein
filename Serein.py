@@ -1,5 +1,6 @@
 import configparser
 import ctypes
+import shodan
 from exp.spring4shell_exp import *
 from exp.hkv_rce import *
 from exp.xrk_rce import *
@@ -11,6 +12,7 @@ from exp.CVE_2022_23337 import *
 from exp.f5_big_ip import *
 from exp.harbor import *
 from exp.dvr_login_bypass import *
+from exp.metabase_readfile import *
 import json
 import threading
 from tkinter.messagebox import *
@@ -41,6 +43,7 @@ window.wm_iconbitmap('logo.ico')
 notebook = ttk.Notebook(window,bootstyle="info")
 frameOne = ttk.Frame(window)
 frameTwo = ttk.Frame(window)
+frameSix = ttk.Frame(window)
 frameThree = ttk.Frame(window)
 frameFour = ttk.Frame(window)
 frameFive = ttk.Frame(window)
@@ -60,6 +63,13 @@ def getHunterConfig(section, key):
     config = configparser.ConfigParser()
     a = os.path.split(os.path.realpath(__file__))
     path = 'hunter配置.conf'
+    config.read(path)
+    return config.get(section, key)
+
+def getShodanConfig(section, key):
+    config = configparser.ConfigParser()
+    a = os.path.split(os.path.realpath(__file__))
+    path = 'shodan配置.conf'
     config.read(path)
     return config.get(section, key)
 
@@ -133,6 +143,37 @@ def hunter_info():
     hunter_button.grid(row=2, column=0, padx=5, pady=5)
     hunter_info.mainloop()
 
+def shodan_saveit_first():
+    key = shodan_key_text.get()
+    with open("shodan配置.conf","a+") as f:
+        f.write(f"[data]\nshodan_api_key={key}")
+        f.close()
+    showinfo("保存成功！","请继续使用shodan搜索模块！下一次将自动读取，不再需要配置！")
+    shodan_log_text.insert(END,f"【+】保存成功！请继续使用shodan搜索模块！下一次将会自动读取，不再需要配置！\n")
+    shodan_log_text.see(END)
+    shodan_info.destroy()
+
+def shodan_saveit_twice():
+    global shodan_api_key
+    if not os.path.exists("shodan配置.conf"):
+        showerror("出错了","您还没有对shodan模块进行配置！请重新打开软件并点击右上角的【软件配置--shodan配置】配置。")
+        shodan_info()
+    else:
+        shodan_api_key = getShodanConfig("data", "shodan_api_key")
+
+def shodan_info():
+    global shodan_info,shodan_key_text
+    shodan_info = tk.Tk()
+    shodan_info.title("shodan配置")
+    shodan_info.geometry('250x70')
+    shodan_info.resizable(0, 0)
+    shodan_info.iconbitmap('logo.ico')
+    shodan_key = tk.StringVar(shodan_info,value="填写您的的key")
+    shodan_key_text = ttk.Entry(shodan_info, bootstyle="success", width=33, textvariable=shodan_key)
+    shodan_key_text.grid(row=0, column=0, padx=5, pady=5)
+    shodan_key_button = ttk.Button(shodan_info, text="点击保存", command=shodan_saveit_first, width=33, bootstyle="info")
+    shodan_key_button.grid(row=1, column=0, padx=5, pady=5)
+    shodan_info.mainloop()
 def app_proxy():
     showinfo("这个还没实现呢~","已经列入我的To-do List里面啦！")
 
@@ -141,6 +182,7 @@ loginmenu = ttk.Menu(menubar,tearoff=0)
 menubar.add_cascade(label='软件配置',menu=loginmenu)
 loginmenu.add_command(label='fofa配置',command=fofa_info)
 loginmenu.add_command(label='hunter配置',command=hunter_info)
+loginmenu.add_command(label='shodan配置',command=shodan_info)
 loginmenu.add_command(label='代理',command=app_proxy)
 aboutmenu = ttk.Menu(menubar,tearoff=0)
 menubar.add_cascade(label='关于与帮助',menu=aboutmenu)
@@ -193,18 +235,22 @@ def fofa():
                     url = j.strip()
                     if url[:7] == 'http://' or url[:8] == 'https://':
                         with open("修正后的url.txt", 'a+') as f:
+                            text3.insert(END, chars=url + "\n")
+                            text3.see(END)
                             f.write(url + '\n')
                     else:
                         newurl = 'http://' + str(url)
                         with open("修正后的url.txt", 'a+') as f:
+                            text3.insert(END, chars=newurl + "\n")
+                            text3.see(END)
                             f.write(newurl + '\n')
             showinfo('保存成功', '文件就在您的当前文件夹下，urls.txt是采集的所有url合集，修正后的url.txt里的url是全部加了http/https头的。')
             text3.insert(END, chars="【+】保存成功！文件就在您的当前文件夹下，【urls.txt】是采集的所有url合集，【修正后的url.txt】里的url是全部加了http/https头的。\n")
             text3.see(END)
             f.close()
     except Exception as error:
-        showerror("出错了！","请检查您的base64前的语句是否正确（比如英文双引号打成了中文双引号）；\n若确实没问题，请立即联系微信W01fh4cker！")
-        text3.insert(END, chars="【×】出错了！请检查您的base64前的语句是否正确（比如英文双引号打成了中文双引号）；若确实没问题，请立即联系微信W01fh4cker！\n")
+        showerror("出错了！","请检查您的base64前的语句是否正确（比如英文双引号打成了中文双引号）或是否使用了代理软件；\n若确实没问题，请立即联系微信W01fh4cker！")
+        text3.insert(END, chars="【×】出错了！请检查您的base64前的语句是否正确（比如英文双引号打成了中文双引号）或是否使用了代理软件；若确实没问题，请立即联系微信W01fh4cker！\n")
         text3.see(END)
 
 def thread_fofa():
@@ -214,6 +260,8 @@ def thread_fofa():
 
 def hunter_query():
     showinfo('开始采集', '程序开始采集url，请耐心等待，不要关闭程序。')
+    text15.insert(END, chars="【√】程序开始采集url，请耐心等待，不要关闭程序。\n")
+    text15.see(END)
     hunter_saveit_twice()
     # try:
     global i
@@ -240,8 +288,12 @@ def hunter_query():
     res = json.loads((resp.content).decode('utf-8'))
     global first_url
     hunter_res_num = res["data"]["total"]
-    text15.insert(END, chars=f"【*】当前共查询到{hunter_res_num}条数据。\n")
-    text15.see(END)
+    if hunter_res_num == "0":
+        text15.insert(END, chars=f"【*】当前共查询到{hunter_res_num}条数据！，请检查您base64加密前的语句并重启软件查询\n")
+        text15.see(END)
+    else:
+        text15.insert(END, chars=f"【*】当前共查询到{hunter_res_num}条数据！\n")
+        text15.see(END)
     for i in range(len(res["data"]["arr"])):
         if (hunter_res_num == 0):
             text15.insert(END, chars="【*】当前共查询到0条数据。\n")
@@ -301,14 +353,47 @@ def check_url_format():
                 with open("修正后的url.txt",'w') as h:
                     h.write(url + '\n')
 def hunter():
-    # try:
     hunter_query()
     check_code()
     save_url()
     check_url_format()
-    # except:
-    #     text15.insert(END,"【×】出错了！请先自查您的搜索语法、配置文件填写是否有问题！如果确认无误，请立即联系微信W01fh4cker或者提出issues！\n")
-    #     text15.see(END)
+
+def shodan_seach():
+    shodan_saveit_twice()
+    showinfo('开始采集', '程序开始采集url，请耐心等待，不要关闭程序。')
+    shodan_log_text.insert(END, "【√】程序开始采集url，请耐心等待，不要关闭程序。\n")
+    shodan_log_text.see(END)
+    SHODAN_API_KEY = getShodanConfig("data","shodan_api_key")
+    api = shodan.Shodan(SHODAN_API_KEY)
+    try:
+        shodan_search_sentence = shodan_yf_text.get()
+        results = api.search(shodan_search_sentence)
+        shodan_number = len(results['matches'])
+        for i in range(shodan_number):
+            with open('修正后的url.txt', 'a+') as f:
+                ip_str = results['matches'][i]['ip_str']
+                port = results['matches'][i]['port']
+                if port is not None:
+                    shodan_got_url1 = "https://" + str(ip_str) + ":" + str(port) + '\n'
+                    f.write(shodan_got_url1)
+                    shodan_log_text.insert(END, chars=shodan_got_url1)
+                    shodan_log_text.see(END)
+                else:
+                    shodan_got_url2 = "https://" + str(ip_str) + '\n'
+                    f.write(shodan_got_url2)
+                    shodan_log_text.insert(END, chars=shodan_got_url2)
+                    shodan_log_text.see(END)
+        showinfo('保存成功', '文件就在您的当前文件夹下的【修正后的url.txt】里。')
+        shodan_log_text.insert(END, chars="【+】保存成功！文件就在您的当前文件夹下的【修正后的url.txt】里。\n")
+        shodan_log_text.see(END)
+    except:
+        showerror("出错了","请检查您的账号是否有调用API查询该语句的权限！")
+        shodan_log_text.insert(END,"【×】出错了，请检查您的账号是否有调用API查询该语句的权限！\n")
+        shodan_log_text.see(END)
+def thread_shodan():
+    t = threading.Thread(target=shodan_seach)
+    t.setDaemon(True)
+    t.start()
 
 group1 = ttk.LabelFrame(frameOne, text="fofa搜索模块",bootstyle="info")
 group1.grid(row=0,column=0,padx=10, pady=10)
@@ -448,6 +533,76 @@ group11.grid(row=0,rowspan=2,column=1,padx=5, pady=5)
 text17 = scrolledtext.ScrolledText(group11,width=23, height=42)
 text17.grid(row=0,column=0,padx=5,pady=5)
 
+notebook.add(frameSix, text='Shodan搜索')
+shodan_search_group = ttk.LabelFrame(frameSix, text="Shodan搜索模块",bootstyle="info")
+shodan_log_text = scrolledtext.ScrolledText(shodan_search_group,width=112, height=40)
+shodan_log_text.grid(row=1,columnspan=3,padx=5,pady=5)
+shodan_yf = tk.StringVar(value="直接填写shodan语法（不需要加密）")
+shodan_yf_text = ttk.Entry(shodan_search_group, bootstyle="success", width=50, textvariable=shodan_yf)
+shodan_yf_text.grid(row=0, column=0, padx=5, pady=5)
+shodan_ts = tk.StringVar(value="填写查询条数(根据自己的会员情况填写)")
+shodan_ts_text = ttk.Entry(shodan_search_group, bootstyle="success", width=35, textvariable=shodan_ts)
+shodan_ts_text.grid(row=0,column=1,padx=5, pady=5)
+shodan_search_button = ttk.Button(shodan_search_group, text="点击查询", command=thread_shodan, width=20, bootstyle="info")
+shodan_search_button.grid(row=0, column=2, padx=5, pady=5)
+shodan_search_group.grid(row=0,column=0,padx=5, pady=5)
+shodan_yufa_group = ttk.LabelFrame(frameSix, text="Shodan语法参考",bootstyle="info")
+shodan_yufa_group.grid(row=0,column=1,padx=5, pady=5)
+shodan_yufa_text = scrolledtext.ScrolledText(shodan_yufa_group,width=89, height=42)
+shodan_yufa_text.grid(row=1,column=4,padx=5,pady=5)
+shodan_yufa_text.insert(END,r"""------限定国家和城市
+限定国家country:"CN"
+限定城市city:"ShangHai"
+
+------限定主机名或域名
+hostname:.org
+hostname:"google"
+hostname:baidu.com
+
+------限定组织或机构
+org:"alibaba"
+
+------限定系统OS版本
+os:"Windows Server 2008 R2"
+os:"Windows 7 or 8"
+os:"Linux 2.6.x"
+
+------限定端口
+port:22
+port:80
+
+------指定网段
+net:"59.56.19.0/24"
+
+------指定使用的软件或产品
+product:"Apache httpd"
+product:"nginx"
+product:"Microsoft IIS httpd"
+product:"mysql"
+
+------指定CVE漏洞编号
+vuln:"CVE-2014-0723"
+
+------指定网页内容
+http.html:"hello world"
+
+------指定网页标题
+http.title:"hello"
+
+------指定返回响应码
+http.status:200
+
+------指定返回中的server类型
+http.server:Apache/2.4.7
+http.server:PHP
+
+------指定地理位置
+geo:"31.25,121.44"
+
+------指定ISP供应商
+isp:"China Telecom"
+""")
+shodan_yufa_text.see(END)
 notebook.add(frameTwo, text='nday利用集合')
 group3 = ttk.LabelFrame(frameTwo, text="nday一键利用模块",bootstyle="info")
 group3.grid(row=0,column=0,padx=10, pady=10)
@@ -474,10 +629,12 @@ button9 = ttk.Button(group3,text="Dede v5.7.87 SQL注入一把梭",command=dedes
 button9.grid(row=1,column=4,columnspan=2,padx=5,pady=5)
 button10 = ttk.Button(group3,text="F5 BIG-IP 远程代码执行漏洞一把梭",command=f5_big_ip_gui,width=45,bootstyle="primary")
 button10.grid(row=2,columnspan=2,padx=5,pady=5)
-button10 = ttk.Button(group3,text="Harbor 未授权创建管理员漏洞一把梭(存在漏洞的比较少，但是fofa可以采集到14万的网址，还是添加进来了)",command=harbor_gui,width=45,bootstyle="primary")
-button10.grid(row=2,column=2,columnspan=2,padx=5,pady=5)
-button10 = ttk.Button(group3,text="DVR 登录绕过漏洞(CVE-2018-9995)一把梭",command=dvr_login_bypass_gui,width=45,bootstyle="primary")
-button10.grid(row=2,column=4,columnspan=2,padx=5,pady=5)
+button11 = ttk.Button(group3,text="Harbor 未授权创建管理员漏洞一把梭",command=harbor_gui,width=45,bootstyle="primary")
+button11.grid(row=2,column=2,columnspan=2,padx=5,pady=5)
+button12 = ttk.Button(group3,text="DVR 登录绕过漏洞(CVE-2018-9995)一把梭",command=dvr_login_bypass_gui,width=45,bootstyle="info")
+button12.grid(row=2,column=4,columnspan=2,padx=5,pady=5)
+button13 = ttk.Button(group3,text="MetaBase任意文件读取漏洞(CVE-2021-41277)一把梭",command=metabase_readfile_gui,width=45,bootstyle="primary")
+button13.grid(row=3,column=0,columnspan=2,padx=5,pady=5)
 notebook.add(frameThree, text='IP反查域名+权重查询')
 # ip138
 def ip138_chaxun(ip, ua):
@@ -736,7 +893,7 @@ text7.grid(row=1,column=0,padx=10,pady=10)
 notebook.add(frameFour, text='base64加密')
 group7 = ttk.LabelFrame(frameFour, text="base64加密模块",bootstyle="info")
 group7.grid(row=0,column=0,padx=10, pady=10)
-group8 = ttk.LabelFrame(frameFour, text="常用语句以及对应的base64内容",bootstyle="info")
+group8 = ttk.LabelFrame(frameFour, text="常用fofa语句以及对应的base64内容",bootstyle="info")
 group8.grid(row=0,column=1,padx=10, pady=10)
 sentence = tk.StringVar(frameFour, value="填写您要加密的内容")
 encode_entry = ttk.Entry(group7, bootstyle="success", width=102, textvariable=sentence)
@@ -745,7 +902,7 @@ encode_text = scrolledtext.ScrolledText(group7, width=100, height=30)
 encode_text.grid(row=2, column=0, padx=10, pady=10)
 encode_text2 = scrolledtext.ScrolledText(group8, width=100, height=30)
 encode_text2.grid(row=2, column=1, padx=10, pady=10)
-encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="Apache-Shiro" && header="rememberme=deleteMe"】的加密结果为YXBwPSJBcGFjaGUtU2hpcm8iICYmIGhlYWRlcj0icmVtZW1iZXJtZT1kZWxldGVNZSI=\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n【icon_hash="-335242539"】的加密结果为aWNvbl9oYXNoPSItMzM1MjQyNTM5Ig==\n【title="Harbor"】的加密结果为dGl0bGU9IkhhcmJvciI=\n【title="XVR Login"】的加密结果为dGl0bGU9IlhWUiBMb2dpbiI=\n""")
+encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n【icon_hash="-335242539"】的加密结果为aWNvbl9oYXNoPSItMzM1MjQyNTM5Ig==\n【title="Harbor"】的加密结果为dGl0bGU9IkhhcmJvciI=\n【title="XVR Login"】的加密结果为dGl0bGU9IlhWUiBMb2dpbiI=\n【app="Metabase"】的加密结果为YXBwPSJNZXRhYmFzZSI=\n""")
 encode_text2.see(END)
 encode_text2.config(state="disabled")
 def base64_dec():

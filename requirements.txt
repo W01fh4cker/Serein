@@ -1,9 +1,10 @@
 Pillow
 ttkbootstrap
-tk
+tkinter
 requests
 fake-useragent
 threadpool
 tldextract
 bs4
 pycryptodome
+shodan
