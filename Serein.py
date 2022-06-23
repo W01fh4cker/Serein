@@ -1,6 +1,8 @@
 import configparser
 import ctypes
 import shodan
+from exp.Thinkphp_5_0_x_gethell import *
+from exp.CVE_2022_22954 import *
 from exp.spring4shell_exp import *
 from exp.hkv_rce import *
 from exp.xrk_rce import *
@@ -635,6 +637,11 @@ button12 = ttk.Button(group3,text="DVR 登录绕过漏洞(CVE-2018-9995)一把�
 button12.grid(row=2,column=4,columnspan=2,padx=5,pady=5)
 button13 = ttk.Button(group3,text="MetaBase任意文件读取漏洞(CVE-2021-41277)一把梭",command=metabase_readfile_gui,width=45,bootstyle="primary")
 button13.grid(row=3,column=0,columnspan=2,padx=5,pady=5)
+button13.grid(row=3,column=0,columnspan=2,padx=5,pady=5)
+button14 = ttk.Button(group3,text="VMware服务端模板注入漏洞(CVE-2022-22954)一把梭",command=vmware_one_access_ssti_gui,width=45,bootstyle="primary")
+button14.grid(row=3,column=2,columnspan=2,padx=5,pady=5)
+button15 = ttk.Button(group3,text="Thinkphp 5.0.x通杀gethell一把梭",command=Thinkphp_5_0_x_gethell_gui,width=45,bootstyle="primary")
+button15.grid(row=3,column=4,columnspan=2,padx=5,pady=5)
 notebook.add(frameThree, text='IP反查域名+权重查询')
 # ip138
 def ip138_chaxun(ip, ua):
@@ -900,9 +907,9 @@ encode_entry = ttk.Entry(group7, bootstyle="success", width=102, textvariable=se
 encode_entry.grid(row=0, column=0, padx=10, pady=10)
 encode_text = scrolledtext.ScrolledText(group7, width=100, height=30)
 encode_text.grid(row=2, column=0, padx=10, pady=10)
-encode_text2 = scrolledtext.ScrolledText(group8, width=100, height=30)
+encode_text2 = scrolledtext.ScrolledText(group8, width=98, height=36)
 encode_text2.grid(row=2, column=1, padx=10, pady=10)
-encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n【icon_hash="-335242539"】的加密结果为aWNvbl9oYXNoPSItMzM1MjQyNTM5Ig==\n【title="Harbor"】的加密结果为dGl0bGU9IkhhcmJvciI=\n【title="XVR Login"】的加密结果为dGl0bGU9IlhWUiBMb2dpbiI=\n【app="Metabase"】的加密结果为YXBwPSJNZXRhYmFzZSI=\n""")
+encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n【icon_hash="-335242539"】的加密结果为aWNvbl9oYXNoPSItMzM1MjQyNTM5Ig==\n【title="Harbor"】的加密结果为dGl0bGU9IkhhcmJvciI=\n【title="XVR Login"】的加密结果为dGl0bGU9IlhWUiBMb2dpbiI=\n【app="Metabase"】的加密结果为YXBwPSJNZXRhYmFzZSI=\n【app="vmware-Workspace-ONE-Access" || app="vmware-Identity-Manager"】的加密结果为YXBwPSJ2bXdhcmUtV29ya3NwYWNlLU9ORS1BY2Nlc3MiIHx8IGFwcD0idm13YXJlLUlkZW50aXR5LU1hbmFnZXIi\n【app="APACHE-Spark-Jobs"】的加密结果为YXBwPSJBUEFDSEUtU3BhcmstSm9icyI=\n【header="thinkphp"】的加密结果为aGVhZGVyPSJ0aGlua3BocCI=\n""")
 encode_text2.see(END)
 encode_text2.config(state="disabled")
 def base64_dec():
