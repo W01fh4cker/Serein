@@ -97,4 +97,6 @@ https://github.com/W01fh4cker/Serein/issues
 # My Community | W01fh4cker的兴趣交流社区  
 ## > `https://discord.gg/n2c5Eaw4Jx` <  
 
-![image](https://user-images.githubusercontent.com/101872898/173513465-5c43767a-5dcd-4aa5-83ee-d7ea5c757bbb.png)
+![image](https://user-images.githubusercontent.com/101872898/173513465-5c43767a-5dcd-4aa5-83ee-d7ea5c757bbb.png)  
+# Star Growth Curve | Star增长曲线  
+[![Stargazers over time](https://starchart.cc/W01fh4cker/Serein.svg)](https://starchart.cc/W01fh4cker/Serein)
