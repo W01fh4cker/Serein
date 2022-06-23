@@ -1,6 +1,5 @@
 Pillow
 ttkbootstrap
-tkinter
 requests
 fake-useragent
 threadpool
