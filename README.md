@@ -95,7 +95,7 @@ https://github.com/W01fh4cker/Serein/issues
 3. （优先）添加其他的搜索引擎，如：`Censys`、`Zoomeye`、`Quake`等。 
 4.  其他的暂时还没想到，如果小伙伴们有什么想法可以直接在`issues`里面提出    
 # My Community | W01fh4cker的兴趣交流社区  
-## > `https://discord.gg/n2c5Eaw4Jx` <  
+- `https://discord.gg/n2c5Eaw4Jx`
 
 ![image](https://user-images.githubusercontent.com/101872898/173513465-5c43767a-5dcd-4aa5-83ee-d7ea5c757bbb.png)  
 # Star Growth Curve | Star增长曲线  
