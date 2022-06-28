@@ -7,7 +7,12 @@
 2. 由于是短时间熬夜所写，头脑昏昏，料想会有不少错误，欢迎指出，我的联系方式在下方已经贴出，不胜感激！  
 3. **计划七月份每天增加一个漏洞利用模块，所以欢迎`star/fork`，您的每一个`star`和`fork`都是我前进的动力！**
 # Version | 版本  
+####  V1.9 （2022.6.28）
+
+- 增加了`锐捷 EG易网关管理员账号密码泄露一把梭`、`MagicFlow防火墙网关任意文件读取一把梭`、`DrayTek企业网络设备 远程命令执行一把梭`、`D-Link DCS系列监控账号密码信息泄露一把梭`的一键梭哈模块；
+
 ####  V1.8 （2022.6.23）
+
 - 增加了`VMware服务端模板注入漏洞(CVE-2022-22954)`和`Thinkphp 5.0.x通杀gethell`的一键梭哈模块；
 #### V1.7 （2022.6.21）
 - 增加了`shodan`网络空间测绘模块；
@@ -30,10 +35,11 @@
 ####  V1.0（2022.5.31）
 - 采集意见。
 # Latest-Interface-Display | 最新版页面展示 
-![0](https://www.png8.com/imgs/2022/06/21/3dc10f305e7ba9cf.png)  
-![1](https://www.png8.com/imgs/2022/06/21/53bb999c6e7d486a.png)  
-![2](https://www.png8.com/imgs/2022/06/20/bc890c9804fb0439.png)
-![3](https://www.png8.com/imgs/2022/06/20/c9677c4816e2e1c7.png)
+![](https://s2.loli.net/2022/06/28/QTEDnfFLmVYUzWk.png)
+
+![](https://s2.loli.net/2022/06/28/Ms3XlvzoSHLAUOc.png)
+
+![](https://s2.loli.net/2022/06/28/NW1LCShf6laOuQA.png)
 
 # Exploit-Example | 利用示例
 

@@ -15,6 +15,10 @@ from exp.f5_big_ip import *
 from exp.harbor import *
 from exp.dvr_login_bypass import *
 from exp.metabase_readfile import *
+from exp.ruijie_admin_passwd_leak import *
+from exp.magicflow_readfile import *
+from exp.CVE_2022_8515 import *
+from exp.CVE_2020_25078 import *
 import json
 import threading
 from tkinter.messagebox import *
@@ -367,10 +371,14 @@ def shodan_seach():
     shodan_log_text.see(END)
     SHODAN_API_KEY = getShodanConfig("data","shodan_api_key")
     api = shodan.Shodan(SHODAN_API_KEY)
+    api_info = api.info()
+    shodan_log_text.insert(END, chars=api_info)
+    shodan_log_text.see(END)
     try:
         shodan_search_sentence = shodan_yf_text.get()
         results = api.search(shodan_search_sentence)
-        shodan_number = len(results['matches'])
+        shodan_number = shodan_ts_text.get()
+        shodan_number = int(shodan_number)
         for i in range(shodan_number):
             with open('修正后的url.txt', 'a+') as f:
                 ip_str = results['matches'][i]['ip_str']
@@ -388,7 +396,8 @@ def shodan_seach():
         showinfo('保存成功', '文件就在您的当前文件夹下的【修正后的url.txt】里。')
         shodan_log_text.insert(END, chars="【+】保存成功！文件就在您的当前文件夹下的【修正后的url.txt】里。\n")
         shodan_log_text.see(END)
-    except:
+    except Exception as e:
+        print(e)
         showerror("出错了","请检查您的账号是否有调用API查询该语句的权限！")
         shodan_log_text.insert(END,"【×】出错了，请检查您的账号是否有调用API查询该语句的权限！\n")
         shodan_log_text.see(END)
@@ -642,6 +651,14 @@ button14 = ttk.Button(group3,text="VMware服务端模板注入漏洞(CVE-2022-22
 button14.grid(row=3,column=2,columnspan=2,padx=5,pady=5)
 button15 = ttk.Button(group3,text="Thinkphp 5.0.x通杀gethell一把梭",command=Thinkphp_5_0_x_gethell_gui,width=45,bootstyle="primary")
 button15.grid(row=3,column=4,columnspan=2,padx=5,pady=5)
+button16 = ttk.Button(group3,text="锐捷 EG易网关管理员账号密码泄露一把梭",command=ruijie_admin_passwd_leak_gui,width=45,bootstyle="info")
+button16.grid(row=4,column=0,columnspan=2,padx=5,pady=5)
+button17 = ttk.Button(group3,text="MagicFlow防火墙网关任意文件读取一把梭",command=magicflow_readfile_gui,width=45,bootstyle="info")
+button17.grid(row=4,column=2,columnspan=2,padx=5,pady=5)
+button18 = ttk.Button(group3,text="DrayTek企业网络设备 远程命令执行一把梭",command=vigor_rce_gui,width=45,bootstyle="info")
+button18.grid(row=4,column=4,columnspan=2,padx=5,pady=5)
+button19 = ttk.Button(group3,text="D-Link DCS系列监控账号密码信息泄露一把梭",command=dcs_admin_passwd_leak_gui,width=45,bootstyle="info")
+button19.grid(row=5,column=0,columnspan=2,padx=5,pady=5)
 notebook.add(frameThree, text='IP反查域名+权重查询')
 # ip138
 def ip138_chaxun(ip, ua):
@@ -909,7 +926,7 @@ encode_text = scrolledtext.ScrolledText(group7, width=100, height=30)
 encode_text.grid(row=2, column=0, padx=10, pady=10)
 encode_text2 = scrolledtext.ScrolledText(group8, width=98, height=36)
 encode_text2.grid(row=2, column=1, padx=10, pady=10)
-encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n【icon_hash="-335242539"】的加密结果为aWNvbl9oYXNoPSItMzM1MjQyNTM5Ig==\n【title="Harbor"】的加密结果为dGl0bGU9IkhhcmJvciI=\n【title="XVR Login"】的加密结果为dGl0bGU9IlhWUiBMb2dpbiI=\n【app="Metabase"】的加密结果为YXBwPSJNZXRhYmFzZSI=\n【app="vmware-Workspace-ONE-Access" || app="vmware-Identity-Manager"】的加密结果为YXBwPSJ2bXdhcmUtV29ya3NwYWNlLU9ORS1BY2Nlc3MiIHx8IGFwcD0idm13YXJlLUlkZW50aXR5LU1hbmFnZXIi\n【app="APACHE-Spark-Jobs"】的加密结果为YXBwPSJBUEFDSEUtU3BhcmstSm9icyI=\n【header="thinkphp"】的加密结果为aGVhZGVyPSJ0aGlua3BocCI=\n""")
+encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n【icon_hash="-335242539"】的加密结果为aWNvbl9oYXNoPSItMzM1MjQyNTM5Ig==\n【title="Harbor"】的加密结果为dGl0bGU9IkhhcmJvciI=\n【title="XVR Login"】的加密结果为dGl0bGU9IlhWUiBMb2dpbiI=\n【app="Metabase"】的加密结果为YXBwPSJNZXRhYmFzZSI=\n【app="vmware-Workspace-ONE-Access" || app="vmware-Identity-Manager"】的加密结果为YXBwPSJ2bXdhcmUtV29ya3NwYWNlLU9ORS1BY2Nlc3MiIHx8IGFwcD0idm13YXJlLUlkZW50aXR5LU1hbmFnZXIi\n【app="APACHE-Spark-Jobs"】的加密结果为YXBwPSJBUEFDSEUtU3BhcmstSm9icyI=\n【header="thinkphp"】的加密结果为aGVhZGVyPSJ0aGlua3BocCI=\n【app="Ruijie-EG易网关" && port="4430"】的加密结果为YXBwPSJSdWlqaWUtRUfmmJPnvZHlhbMiICYmIHBvcnQ9IjQ0MzAi\n【app="MSA/1.0"】的加密结果为YXBwPSJNU0EvMS4wIg==\n【title="Vigor 2960"】的加密结果为dGl0bGU9IlZpZ29yIDI5NjAi\n【app="D_Link-DCS-2530L"】的加密结果为YXBwPSJEX0xpbmstRENTLTI1MzBMIg==\n""")
 encode_text2.see(END)
 encode_text2.config(state="disabled")
 def base64_dec():
