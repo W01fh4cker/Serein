@@ -9,12 +9,16 @@ def yyu8_testsql_exp(url):
     try:
         res = requests.get(url, timeout=3)
         if "c4ca4238a0b923820dcc509a6f75849b" in res.text:
-            yyu8_testsql_text.insert(END,"【*】存在漏洞的url：" + url + "\n")
+            yyu8_testsql_text.insert(END,"【!!!!!!】存在漏洞的url：" + url + "\n")
             yyu8_testsql_text.see(END)
             with open ("存在用友U8OAtest_jspSQL注入漏洞的url.txt", 'a') as f:
                 f.write(url + "\n")
-    except:
-        pass
+        else:
+            yyu8_testsql_text.insert(END,"【×】不存在漏洞的url：" + url + "\n")
+            yyu8_testsql_text.see(END)
+    except Exception as err:
+        yyu8_testsql_text.insert(END, "【×】目标请求失败，报错内容：" + str(err) + "\n")
+        yyu8_testsql_text.see(END)
 def get_yyu8_addr():
     with open("修正后的url.txt","r") as f:
         for address in f.readlines():

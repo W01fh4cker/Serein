@@ -13,8 +13,12 @@ def yync_exp(url):
             yync_rce_text.see(END)
             with open ("存在用友NC命令执行漏洞的url.txt", 'a') as f:
                 f.write(url + "\n")
-    except:
-        pass
+        else:
+            yync_rce_text.insert(END, "【×】不存在漏洞的url：" + url + "\n")
+            yync_rce_text.see(END)
+    except Exception as err:
+        yync_rce_text.insert(END, "【×】目标请求失败，报错内容：" + str(err) + "\n")
+        yync_rce_text.see(END)
 def get_yync_addr():
     with open("修正后的url.txt","r") as f:
         for address in f.readlines():

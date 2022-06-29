@@ -7,39 +7,15 @@
 2. 由于是短时间熬夜所写，头脑昏昏，料想会有不少错误，欢迎指出，我的联系方式在下方已经贴出，不胜感激！  
 3. **计划七月份每天增加一个漏洞利用模块，所以欢迎`star/fork`，您的每一个`star`和`fork`都是我前进的动力！**
 # Version | 版本  
-####  V1.9 （2022.6.28）
 
-- 增加了`锐捷 EG易网关管理员账号密码泄露一把梭`、`MagicFlow防火墙网关任意文件读取一把梭`、`DrayTek企业网络设备 远程命令执行一把梭`、`D-Link DCS系列监控账号密码信息泄露一把梭`的一键梭哈模块；
+[版本更新说明 | Version Update Instructions](https://github.com/W01fh4cker/Serein/blob/main/version.md)
 
-####  V1.8 （2022.6.23）
-
-- 增加了`VMware服务端模板注入漏洞(CVE-2022-22954)`和`Thinkphp 5.0.x通杀gethell`的一键梭哈模块；
-#### V1.7 （2022.6.21）
-- 增加了`shodan`网络空间测绘模块；
-- 增加了`MetaBase任意文件读取漏洞(CVE-2021-41277)`的一键梭哈模块。
-####  V1.6（2022.6.20）
-- 删除了`nday利用集合`中的日志记录模块；
-- 增加了`F5 BIG-IP 远程代码执行漏洞`、`Harbor 未授权创建管理员漏洞`、`DVR 登录绕过漏洞(CVE-2018-9995)`的一键梭哈模块。
-####  V1.5（2022.6.11）
-- 删除了`shiro`一键梭哈模块；
-- 增加了`SonicWall SSL-VPN 远程命令执行`的一键梭哈模块；
-- **录制使用视频，并且上传到了B站：https://www.bilibili.com/video/bv1Dv4y137Lu** 
-####  V1.4（2022.6.6白天-6.7凌晨）
-- 增加了`shiro`、`用友NC RCE`、`用友U8 OA sql注入`、`DedeCMS v5.7.87 SQL注入(CVE-2022-23337)`的一键梭哈模块。
-####  V1.3（2022.6.6凌晨）
-- 增加了奇安信`Hunter`网络空间测绘模块。 
-####  V1.2（2022.6.4）
-- 增加`Actively Exploited Atlassian Confluence 0Day CVE-2022-26134`的一键梭哈模块。
-####  V1.1（2022.6.3）
-- 增加ip反查域名功能，2022.6.3凌晨已经实现了权重查询，但是运行会卡死，预计2022.6.3晚发布带有权重查询筛选的版本。
-####  V1.0（2022.5.31）
-- 采集意见。
 # Latest-Interface-Display | 最新版页面展示 
-![](https://s2.loli.net/2022/06/28/QTEDnfFLmVYUzWk.png)
+![0](https://s2.loli.net/2022/06/30/u2pve8DKayVqxPY.png)
 
-![](https://s2.loli.net/2022/06/28/Ms3XlvzoSHLAUOc.png)
+![1](https://s2.loli.net/2022/06/30/6we4Pi2qBUocJVz.png)
 
-![](https://s2.loli.net/2022/06/28/NW1LCShf6laOuQA.png)
+![2](https://s2.loli.net/2022/06/30/Si6flYj4sh8a9kw.png)
 
 # Exploit-Example | 利用示例
 

