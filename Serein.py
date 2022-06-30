@@ -19,6 +19,9 @@ from exp.ruijie_admin_passwd_leak import *
 from exp.magicflow_readfile import *
 from exp.CVE_2022_8515 import *
 from exp.CVE_2020_25078 import *
+from exp.fumengyun_sql import *
+from exp.VOS3000_readfile import *
+from exp.kkFileView_readfile_CVE_2021_43734 import *
 import json
 import threading
 from tkinter.messagebox import *
@@ -273,7 +276,7 @@ def hunter_query():
     global i
     global number
     number = 1
-    i =0
+    i = 0
     api_key = hunter_api_key
     query_sentence = text8.get()
     hunter_pagenum_to_query = text9.get()
@@ -309,14 +312,17 @@ def hunter_query():
             try:
                 its_ip = res["data"]["arr"][i]["ip"]
                 its_url = res["data"]["arr"][i]["url"]
-                with open("修正后的url.txt","a+") as m:
-                    m.write(its_url + "\n")
-                with open("host.txt","a+") as m:
-                    m.write(its_ip + "\n")
-                if its_ip is None:
+                if its_ip == "违规数据无法查看" or its_url == "违规数据无法查看":
                     pass
                 else:
-                    first_url = str(its_url)
+                    with open("修正后的url.txt","a+") as m:
+                        m.write(its_url + "\n")
+                    with open("host.txt","a+") as m:
+                        m.write(its_ip + "\n")
+                    if its_ip is None:
+                        pass
+                    else:
+                        first_url = str(its_url)
             except:
                 i = i + 1
     consume_quota = res["data"]["consume_quota"]
@@ -657,8 +663,14 @@ button17 = ttk.Button(group3,text="MagicFlow防火墙网关任意文件读取一
 button17.grid(row=4,column=2,columnspan=2,padx=5,pady=5)
 button18 = ttk.Button(group3,text="DrayTek企业网络设备 远程命令执行一把梭",command=vigor_rce_gui,width=45,bootstyle="info")
 button18.grid(row=4,column=4,columnspan=2,padx=5,pady=5)
-button19 = ttk.Button(group3,text="D-Link DCS系列监控账号密码信息泄露一把梭",command=dcs_admin_passwd_leak_gui,width=45,bootstyle="info")
+button19 = ttk.Button(group3,text="D-Link DCS系列监控账号密码信息泄露一把梭",command=dcs_admin_passwd_leak_gui,width=45,bootstyle="success")
 button19.grid(row=5,column=0,columnspan=2,padx=5,pady=5)
+button20 = ttk.Button(group3,text="孚盟云 AjaxMethod.ashx SQL注入一把梭",command=fumengyun_sql_gui,width=45,bootstyle="success")
+button20.grid(row=5,column=2,columnspan=2,padx=5,pady=5)
+button21 = ttk.Button(group3,text="昆石网络虚拟运营支撑系统任意文件读取漏洞一把梭",command=VOS3000_redfile_gui,width=45,bootstyle="success")
+button21.grid(row=5,column=4,columnspan=2,padx=5,pady=5)
+button22 = ttk.Button(group3,text="kkFileView getCorsFile 任意文件读取漏洞一把梭",command=kkFileView_readfile_CVE_2021_43734_gui,width=45,bootstyle="success")
+button22.grid(row=6,column=0,columnspan=2,padx=5,pady=5)
 notebook.add(frameThree, text='IP反查域名+权重查询')
 # ip138
 def ip138_chaxun(ip, ua):
@@ -739,7 +751,6 @@ def ip2domain():
                 f.truncate()
             max_thread_num = 100
             executor = ThreadPoolExecutor(max_workers=max_thread_num)
-            showinfo("IP反查域名开始", "结果保存在当前文件夹下的[ip反查结果.txt]和[反查失败列表.txt]中。")
             for i in url_list:
                 future = executor.submit(catch_result, i)
 
@@ -926,7 +937,7 @@ encode_text = scrolledtext.ScrolledText(group7, width=100, height=30)
 encode_text.grid(row=2, column=0, padx=10, pady=10)
 encode_text2 = scrolledtext.ScrolledText(group8, width=98, height=36)
 encode_text2.grid(row=2, column=1, padx=10, pady=10)
-encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n【icon_hash="-335242539"】的加密结果为aWNvbl9oYXNoPSItMzM1MjQyNTM5Ig==\n【title="Harbor"】的加密结果为dGl0bGU9IkhhcmJvciI=\n【title="XVR Login"】的加密结果为dGl0bGU9IlhWUiBMb2dpbiI=\n【app="Metabase"】的加密结果为YXBwPSJNZXRhYmFzZSI=\n【app="vmware-Workspace-ONE-Access" || app="vmware-Identity-Manager"】的加密结果为YXBwPSJ2bXdhcmUtV29ya3NwYWNlLU9ORS1BY2Nlc3MiIHx8IGFwcD0idm13YXJlLUlkZW50aXR5LU1hbmFnZXIi\n【app="APACHE-Spark-Jobs"】的加密结果为YXBwPSJBUEFDSEUtU3BhcmstSm9icyI=\n【header="thinkphp"】的加密结果为aGVhZGVyPSJ0aGlua3BocCI=\n【app="Ruijie-EG易网关" && port="4430"】的加密结果为YXBwPSJSdWlqaWUtRUfmmJPnvZHlhbMiICYmIHBvcnQ9IjQ0MzAi\n【app="MSA/1.0"】的加密结果为YXBwPSJNU0EvMS4wIg==\n【title="Vigor 2960"】的加密结果为dGl0bGU9IlZpZ29yIDI5NjAi\n【app="D_Link-DCS-2530L"】的加密结果为YXBwPSJEX0xpbmstRENTLTI1MzBMIg==\n""")
+encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n【icon_hash="-335242539"】的加密结果为aWNvbl9oYXNoPSItMzM1MjQyNTM5Ig==\n【title="Harbor"】的加密结果为dGl0bGU9IkhhcmJvciI=\n【title="XVR Login"】的加密结果为dGl0bGU9IlhWUiBMb2dpbiI=\n【app="Metabase"】的加密结果为YXBwPSJNZXRhYmFzZSI=\n【app="vmware-Workspace-ONE-Access" || app="vmware-Identity-Manager"】的加密结果为YXBwPSJ2bXdhcmUtV29ya3NwYWNlLU9ORS1BY2Nlc3MiIHx8IGFwcD0idm13YXJlLUlkZW50aXR5LU1hbmFnZXIi\n【app="APACHE-Spark-Jobs"】的加密结果为YXBwPSJBUEFDSEUtU3BhcmstSm9icyI=\n【header="thinkphp"】的加密结果为aGVhZGVyPSJ0aGlua3BocCI=\n【app="Ruijie-EG易网关" && port="4430"】的加密结果为YXBwPSJSdWlqaWUtRUfmmJPnvZHlhbMiICYmIHBvcnQ9IjQ0MzAi\n【app="MSA/1.0"】的加密结果为YXBwPSJNU0EvMS4wIg==\n【title="Vigor 2960"】的加密结果为dGl0bGU9IlZpZ29yIDI5NjAi\n【app="D_Link-DCS-2530L"】的加密结果为YXBwPSJEX0xpbmstRENTLTI1MzBMIg==\n【title="孚盟云 "】的加密结果为dGl0bGU9IuWtmuebn+S6kSAi\n【app="VOS-VOS3000"】的加密结果为YXBwPSJWT1MtVk9TMzAwMCI=\n【body="kkFileView"】的加密结果为Ym9keT0ia2tGaWxlVmlldyI=\n""")
 encode_text2.see(END)
 encode_text2.config(state="disabled")
 def base64_dec():
