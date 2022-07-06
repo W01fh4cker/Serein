@@ -1,3 +1,7 @@
+####  V2.2 （2022.7.6）
+- 增加了`WSO2远程命令执行漏洞(CVE-2022-29464)一把梭`模块。
+####  V2.1 （2022.7.5）  
+- 实现`Serein`的`Linux`化，并对其作了翻译。项目地址：http://github.com/W01fh4cker/Serein_Linux 。
 ####  V2.0 （2022.6.30）
 
 - 增加了`孚盟云 AjaxMethod.ashx SQL注入一把梭`、`昆石网络虚拟运营支撑系统任意文件读取漏洞一把梭`、`kkFileView getCorsFile 任意文件读取漏洞一把梭`的一键梭哈模块；
