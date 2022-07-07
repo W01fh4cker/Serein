@@ -372,47 +372,52 @@ def hunter():
     save_url()
     check_url_format()
 
-def shodan_seach():
+def shodan_seach(key):
     shodan_saveit_twice()
     showinfo('开始采集', '程序开始采集url，请耐心等待，不要关闭程序。')
     shodan_log_text.insert(END, "【√】程序开始采集url，请耐心等待，不要关闭程序。\n")
     shodan_log_text.see(END)
-    SHODAN_API_KEY = getShodanConfig("data","shodan_api_key")
+    SHODAN_API_KEY = key
     api = shodan.Shodan(SHODAN_API_KEY)
     api_info = api.info()
-    shodan_log_text.insert(END, chars=api_info)
+    api_info_json = json.dumps(api_info, sort_keys=True, indent=4, separators=(',', ':'))
+    shodan_log_text.insert(END, chars=str(api_info_json) + "\n")
     shodan_log_text.see(END)
     try:
         shodan_search_sentence = shodan_yf_text.get()
-        results = api.search(shodan_search_sentence)
         shodan_number = shodan_ts_text.get()
         shodan_number = int(shodan_number)
-        for i in range(shodan_number):
-            with open('修正后的url.txt', 'a+') as f:
-                ip_str = results['matches'][i]['ip_str']
-                port = results['matches'][i]['port']
-                if port is not None:
-                    shodan_got_url1 = "https://" + str(ip_str) + ":" + str(port) + '\n'
-                    f.write(shodan_got_url1)
-                    shodan_log_text.insert(END, chars=shodan_got_url1)
-                    shodan_log_text.see(END)
-                else:
-                    shodan_got_url2 = "https://" + str(ip_str) + '\n'
-                    f.write(shodan_got_url2)
-                    shodan_log_text.insert(END, chars=shodan_got_url2)
-                    shodan_log_text.see(END)
+        page_number = shodan_number / 100
+        pagenumber = page_number + 1
+        pagenumber = int(pagenumber)
+        for j in range(1, pagenumber):
+            results = api.search(shodan_search_sentence, page=j)
+            for i in range(0,100):
+                with open('修正后的url.txt', 'a+') as f:
+                    ip_str = results['matches'][i]['ip_str']
+                    port = results['matches'][i]['port']
+                    if port is not None:
+                        shodan_got_url1 = "https://" + str(ip_str) + ":" + str(port) + '\n'
+                        f.write(shodan_got_url1)
+                        shodan_log_text.insert(END, chars=shodan_got_url1)
+                        shodan_log_text.see(END)
+                    else:
+                        shodan_got_url2 = "https://" + str(ip_str) + '\n'
+                        f.write(shodan_got_url2)
+                        shodan_log_text.insert(END, chars=shodan_got_url2)
+                        shodan_log_text.see(END)
         showinfo('保存成功', '文件就在您的当前文件夹下的【修正后的url.txt】里。')
         shodan_log_text.insert(END, chars="【+】保存成功！文件就在您的当前文件夹下的【修正后的url.txt】里。\n")
         shodan_log_text.see(END)
     except Exception as e:
-        print(e)
         showerror("出错了","请检查您的账号是否有调用API查询该语句的权限！")
         shodan_log_text.insert(END,"【×】出错了，请检查您的账号是否有调用API查询该语句的权限！\n")
         shodan_log_text.see(END)
 def thread_shodan():
-    t = threading.Thread(target=shodan_seach)
-    t.setDaemon(True)
-    t.start()
+    SHODAN_API_KEY = getShodanConfig("data","shodan_api_key")
+    max_thread_num = 100
+    executor = ThreadPoolExecutor(max_workers=max_thread_num)
+    future = executor.submit(shodan_seach, SHODAN_API_KEY)
 
 group1 = ttk.LabelFrame(frameOne, text="fofa搜索模块",bootstyle="info")
 group1.grid(row=0,column=0,padx=10, pady=10)
