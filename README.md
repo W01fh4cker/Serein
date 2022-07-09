@@ -12,9 +12,7 @@
 [版本更新说明 | Version Update Instructions](https://github.com/W01fh4cker/Serein/blob/main/version.md)
 
 # Latest-Interface-Display | 最新版页面展示 
-![0](https://s2.loli.net/2022/07/06/kABTz6QScuoeZpH.png)
-![1](https://s2.loli.net/2022/07/06/tMpzBUh2lnVjQkq.png)
-![2](https://s2.loli.net/2022/06/30/u2pve8DKayVqxPY.png)
+![](https://s2.loli.net/2022/07/09/n3riJAeLbElmFM1.png)
 
 # Exploit-Example | 利用示例
 
@@ -40,9 +38,9 @@
 
 5. **删除文件夹下`urls.txt`、`修正后的url.txt`、`host.txt`这三个文件，准备使用其他一键梭哈模块：**
 
-   ![image-20220531213726915](https://www.png8.com/imgs/2022/05/31/e16e71a0fa2fee23.png)
+   ![](https://s2.loli.net/2022/07/09/DJhz6XdWIbaw1Uq.png)
 
-   ![image-20220531213726915](https://www.png8.com/imgs/2022/05/31/182de6a83f558bde.png)
+   ![](https://s2.loli.net/2022/07/09/fiKHxwl73bkQd2m.png)
 
 # How-To-Use | 如何使用
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import configparser
 import ctypes
 import shodan
@@ -23,6 +24,10 @@ from exp.fumengyun_sql import *
 from exp.VOS3000_readfile import *
 from exp.kkFileView_readfile_CVE_2021_43734 import *
 from exp.CVE_2022_29464 import *
+from exp.SolarView_rce_CVE_2022_29303 import *
+from exp.Fortigate_CVE_2018_13379 import *
+from exp.Microsoft_proxyshell_cve_2021_34473 import *
+from exp.Citrix_rce_cve_2019_19781 import *
 import json
 import threading
 from tkinter.messagebox import *
@@ -57,7 +62,6 @@ frameSix = ttk.Frame(window)
 frameThree = ttk.Frame(window)
 frameFour = ttk.Frame(window)
 frameFive = ttk.Frame(window)
-
 def show_about():
     showinfo("关于作者", "一个乡村爱好者，一个旅行爱好者 。\nCodes build our world.\n微信：W01fh4cker\nGitHub：http://github.com/W01fh4cker\nmy blog：http://www.w01f.org")
 def show_help():
@@ -68,21 +72,18 @@ def getFofaConfig(section, key):
     path = 'fofa配置.conf'
     config.read(path)
     return config.get(section, key)
-
 def getHunterConfig(section, key):
     config = configparser.ConfigParser()
     a = os.path.split(os.path.realpath(__file__))
     path = 'hunter配置.conf'
     config.read(path)
     return config.get(section, key)
-
 def getShodanConfig(section, key):
     config = configparser.ConfigParser()
     a = os.path.split(os.path.realpath(__file__))
     path = 'shodan配置.conf'
     config.read(path)
     return config.get(section, key)
-
 def fofa_saveit_first():
     email = fofa_text1.get()
     key = fofa_text2.get()
@@ -100,7 +101,6 @@ def fofa_saveit_twice():
     else:
         email_r = getFofaConfig("data", "email")
         key_r = getFofaConfig("data", "key")
-
 def fofa_info():
     global fofa_info,fofa_text1,fofa_text2,fofa_text3
     fofa_info = tk.Tk()
@@ -117,7 +117,6 @@ def fofa_info():
     button1 = ttk.Button(fofa_info, text="点击保存", command=fofa_saveit_twice, width=30, bootstyle="info")
     button1.grid(row=2, column=1, padx=5, pady=5)
     fofa_info.mainloop()
-
 def hunter_saveit_first():
     hunter_apikey = hunter_text1.get()
     hunter_cooki = hunter_text2.get()
@@ -135,7 +134,6 @@ def hunter_saveit_twice():
     else:
         hunter_api_key = getHunterConfig("data", "hunter_api_key")
         hunter_cookie = getHunterConfig("data", "hunter_cookie")
-
 def hunter_info():
     global hunter_info,hunter_text1,hunter_text1,hunter_text2
     hunter_info = tk.Tk()
@@ -152,7 +150,6 @@ def hunter_info():
     hunter_button = ttk.Button(hunter_info, text="点击保存（若需修改配置，请自行修改当前目录下的【hunter配置.conf】）", command=hunter_saveit_twice, width=61, bootstyle="info")
     hunter_button.grid(row=2, column=0, padx=5, pady=5)
     hunter_info.mainloop()
-
 def shodan_saveit_first():
     key = shodan_key_text.get()
     with open("shodan配置.conf","a+") as f:
@@ -162,7 +159,6 @@ def shodan_saveit_first():
     shodan_log_text.insert(END,f"【+】保存成功！请继续使用shodan搜索模块！下一次将会自动读取，不再需要配置！\n")
     shodan_log_text.see(END)
     shodan_info.destroy()
-
 def shodan_saveit_twice():
     global shodan_api_key
     if not os.path.exists("shodan配置.conf"):
@@ -170,7 +166,6 @@ def shodan_saveit_twice():
         shodan_info()
     else:
         shodan_api_key = getShodanConfig("data", "shodan_api_key")
-
 def shodan_info():
     global shodan_info,shodan_key_text
     shodan_info = tk.Tk()
@@ -186,7 +181,6 @@ def shodan_info():
     shodan_info.mainloop()
 def app_proxy():
     showinfo("这个还没实现呢~","已经列入我的To-do List里面啦！")
-
 menubar = ttk.Menu(window)
 loginmenu = ttk.Menu(menubar,tearoff=0)
 menubar.add_cascade(label='软件配置',menu=loginmenu)
@@ -202,7 +196,6 @@ exitmenu = ttk.Menu(menubar,tearoff=0)
 menubar.add_cascade(label='退出',menu=exitmenu)
 exitmenu.add_command(label='点我退出',command=window.destroy)
 window.config(menu=menubar)
-
 def fofa():
     fofa_saveit_twice()
     try:
@@ -262,18 +255,15 @@ def fofa():
         showerror("出错了！","请检查您的base64前的语句是否正确（比如英文双引号打成了中文双引号）或是否使用了代理软件；\n若确实没问题，请立即联系微信W01fh4cker！")
         text3.insert(END, chars="【×】出错了！请检查您的base64前的语句是否正确（比如英文双引号打成了中文双引号）或是否使用了代理软件；若确实没问题，请立即联系微信W01fh4cker！\n")
         text3.see(END)
-
 def thread_fofa():
     t = threading.Thread(target=fofa)
     t.setDaemon(True)
     t.start()
-
 def hunter_query():
     showinfo('开始采集', '程序开始采集url，请耐心等待，不要关闭程序。')
     text15.insert(END, chars="【√】程序开始采集url，请耐心等待，不要关闭程序。\n")
     text15.see(END)
     hunter_saveit_twice()
-    # try:
     global i
     global number
     number = 1
@@ -333,11 +323,6 @@ def hunter_query():
     showinfo('保存成功', '文件就在您的当前文件夹下，urls.txt是采集的所有url合集，修正后的url.txt里的url是全部加了http/https头的。')
     text15.insert(END, chars="【+】保存成功！文件就在您的当前文件夹下，【urls.txt】是采集的所有url合集，【修正后的url.txt】里的url是全部加了http/https头的。\n")
     text15.see(END)
-    # except:
-    #     showerror("出错了！","请检查您的base64前的语句是否正确（比如英文双引号打成了中文双引号，或者查询到的数据是0条）；\n若确实没问题，请立即联系微信W01fh4cker！")
-    #     text15.insert(END, chars="【×】出错了！请检查您的base64前的语句是否正确（比如英文双引号打成了中文双引号，或者查询到的数据是0条）；若确实没问题，请立即联系微信W01fh4cker！\n")
-    #     text15.see(END)
-# 判断api调用时候的状态码
 def check_code():
     if (res["code"] == 200):
         pass
@@ -350,11 +335,9 @@ def check_code():
     else:
         text15.insert(END,"【×】其他错误，请立即联系微信W01fh4cker\n")
         text15.see(END)
-#保存初步的url到文件
 def save_url():
     with open("修正后的url.txt", 'a+', encoding='utf-8') as f:
         f.write(first_url + '\n')
-#判断url前面有没有http/https头，如果没有就加上http://
 def check_url_format():
     with open("修正后的url.txt",'r') as f:
         ln = f.readlines()
@@ -371,8 +354,7 @@ def hunter():
     check_code()
     save_url()
     check_url_format()
-
-def shodan_seach(key):
+def shodan_search(key):
     shodan_saveit_twice()
     showinfo('开始采集', '程序开始采集url，请耐心等待，不要关闭程序。')
     shodan_log_text.insert(END, "【√】程序开始采集url，请耐心等待，不要关闭程序。\n")
@@ -411,14 +393,14 @@ def shodan_seach(key):
         shodan_log_text.see(END)
     except Exception as e:
         showerror("出错了","请检查您的账号是否有调用API查询该语句的权限！")
-        shodan_log_text.insert(END,"【×】出错了，请检查您的账号是否有调用API查询该语句的权限！\n")
+        shodan_log_text.insert(END,"【×】出错了，请检查您的账号是否有调用API查询该语句的权限！报错内容："+ str(e) + "\n")
         shodan_log_text.see(END)
 def thread_shodan():
     SHODAN_API_KEY = getShodanConfig("data","shodan_api_key")
     max_thread_num = 100
     executor = ThreadPoolExecutor(max_workers=max_thread_num)
-    future = executor.submit(shodan_seach, SHODAN_API_KEY)
-
+    # for addr in addrs:
+    future = executor.submit(shodan_search, SHODAN_API_KEY)
 group1 = ttk.LabelFrame(frameOne, text="fofa搜索模块",bootstyle="info")
 group1.grid(row=0,column=0,padx=10, pady=10)
 notebook.add(frameOne, text='fofa搜索')
@@ -556,7 +538,6 @@ group11 = ttk.LabelFrame(frameFive, text="hunter积分明细",bootstyle="info")
 group11.grid(row=0,rowspan=2,column=1,padx=5, pady=5)
 text17 = scrolledtext.ScrolledText(group11,width=23, height=42)
 text17.grid(row=0,column=0,padx=5,pady=5)
-
 notebook.add(frameSix, text='Shodan搜索')
 shodan_search_group = ttk.LabelFrame(frameSix, text="Shodan搜索模块",bootstyle="info")
 shodan_log_text = scrolledtext.ScrolledText(shodan_search_group,width=112, height=40)
@@ -630,11 +611,6 @@ shodan_yufa_text.see(END)
 notebook.add(frameTwo, text='nday利用集合')
 group3 = ttk.LabelFrame(frameTwo, text="nday一键利用模块",bootstyle="info")
 group3.grid(row=0,column=0,padx=10, pady=10)
-# group4 = ttk.LabelFrame(frameTwo, text="日志记录模块",bootstyle="info")
-# group4.grid(row=0,column=1,padx=10, pady=10)
-# text4 = tk.Text(group4,width=130,height=40)
-# text4.grid(column=4,padx=10,pady=10)
-
 button2 = ttk.Button(group3,text="Spring4shell一把梭",command=spring4shell_gui,width=20,bootstyle="primary")
 button2.grid(row=0,column=0,padx=5,pady=5)
 button3 = ttk.Button(group3,text="海康威视RCE一把梭",command=hkv_rce_gui,width=20,bootstyle="primary")
@@ -643,19 +619,19 @@ button4 = ttk.Button(group3,text="向日葵RCE一把梭",command=xrk_rce_gui,wid
 button4.grid(row=0,column=2,padx=5,pady=5)
 button5 = ttk.Button(group3,text="ConfulenceONGL RCE一把梭",command=confluence_gui,width=45,bootstyle="info")
 button5.grid(row=1,columnspan=2,padx=5,pady=5)
-button6 = ttk.Button(group3,text="用友NC RCE一把梭",command=yync_rce_gui,width=20,bootstyle="info")
+button6 = ttk.Button(group3,text="用友NC RCE一把梭",command=yync_rce_gui,width=20,bootstyle="primary")
 button6.grid(row=0,column=3,padx=5,pady=5)
-button7 = ttk.Button(group3,text="SonicWall SSL-VPN RCE一把梭",command=sonicwall_ssl_vpn_gui,width=45,bootstyle="warning")
+button7 = ttk.Button(group3,text="SonicWall SSL-VPN RCE一把梭",command=sonicwall_ssl_vpn_gui,width=45,bootstyle="info")
 button7.grid(row=1,column=2,columnspan=2,padx=5,pady=5)
-button8 = ttk.Button(group3,text="用友 U8 OA test.jsp SQL注入一把梭",command=yyu8_testsql_gui,width=45,bootstyle="warning")
+button8 = ttk.Button(group3,text="用友 U8 OA test.jsp SQL注入一把梭",command=yyu8_testsql_gui,width=45,bootstyle="primary")
 button8.grid(row=0,column=4,padx=5,pady=5)
-button9 = ttk.Button(group3,text="Dede v5.7.87 SQL注入一把梭",command=dedesql_gui,width=45,bootstyle="warning")
+button9 = ttk.Button(group3,text="Dede v5.7.87 SQL注入一把梭",command=dedesql_gui,width=45,bootstyle="info")
 button9.grid(row=1,column=4,columnspan=2,padx=5,pady=5)
 button10 = ttk.Button(group3,text="F5 BIG-IP 远程代码执行漏洞一把梭",command=f5_big_ip_gui,width=45,bootstyle="primary")
 button10.grid(row=2,columnspan=2,padx=5,pady=5)
 button11 = ttk.Button(group3,text="Harbor 未授权创建管理员漏洞一把梭",command=harbor_gui,width=45,bootstyle="primary")
 button11.grid(row=2,column=2,columnspan=2,padx=5,pady=5)
-button12 = ttk.Button(group3,text="DVR 登录绕过漏洞(CVE-2018-9995)一把梭",command=dvr_login_bypass_gui,width=45,bootstyle="info")
+button12 = ttk.Button(group3,text="DVR 登录绕过漏洞(CVE-2018-9995)一把梭",command=dvr_login_bypass_gui,width=45,bootstyle="primary")
 button12.grid(row=2,column=4,columnspan=2,padx=5,pady=5)
 button13 = ttk.Button(group3,text="MetaBase任意文件读取漏洞(CVE-2021-41277)一把梭",command=metabase_readfile_gui,width=45,bootstyle="primary")
 button13.grid(row=3,column=0,columnspan=2,padx=5,pady=5)
@@ -680,8 +656,15 @@ button22 = ttk.Button(group3,text="kkFileView getCorsFile 任意文件读取漏�
 button22.grid(row=6,column=0,columnspan=2,padx=5,pady=5)
 button23 = ttk.Button(group3,text="WSO2远程命令执行漏洞(CVE-2022-29464)一把梭",command=CVE_2022_29464_gui,width=45,bootstyle="success")
 button23.grid(row=6,column=2,columnspan=2,padx=5,pady=5)
+button24 = ttk.Button(group3,text="SolarView RCE漏洞(CVE-2022-29303)一把梭",command=SolarView_rce_CVE_2022_29303_gui,width=45,bootstyle="success")
+button24.grid(row=6,column=4,columnspan=2,padx=5,pady=5)
+button25 = ttk.Button(group3,text="Fortinet任意文件读取漏洞(CVE-2018-13379)一把梭",command=Fortigate_CVE_2018_13379_gui,width=45,bootstyle="warning")
+button25.grid(row=7,column=0,columnspan=2,padx=5,pady=5)
+button26 = ttk.Button(group3,text="Microsoft Exchange RCE(CVE-2021-34473)一把梭",command=Microsoft_proxyshell_cve_2021_34473_gui,width=45,bootstyle="warning")
+button26.grid(row=7,column=2,columnspan=2,padx=5,pady=5)
+button27 = ttk.Button(group3,text="Citrix远程代码执行漏洞(CVE_2019_19781)一把梭",command=Citrix_rce_cve_2019_19781_gui,width=45,bootstyle="warning")
+button27.grid(row=7,column=4,columnspan=2,padx=5,pady=5)
 notebook.add(frameThree, text='IP反查域名+权重查询')
-# ip138
 def ip138_chaxun(ip, ua):
     ip138_headers = {
         'Host': 'site.ip138.com',
@@ -699,8 +682,6 @@ def ip138_chaxun(ip, ua):
             return result_site
     except:
         pass
-
-# 爱站
 def aizhan_chaxun(ip, ua):
     aizhan_headers = {
 
@@ -719,8 +700,6 @@ def aizhan_chaxun(ip, ua):
             return aizhan_domains
     except:
         pass
-
-
 def catch_result(i):
     ua_header = UserAgent()
     i = i.strip()
@@ -946,7 +925,7 @@ encode_text = scrolledtext.ScrolledText(group7, width=100, height=30)
 encode_text.grid(row=2, column=0, padx=10, pady=10)
 encode_text2 = scrolledtext.ScrolledText(group8, width=98, height=36)
 encode_text2.grid(row=2, column=1, padx=10, pady=10)
-encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n【icon_hash="-335242539"】的加密结果为aWNvbl9oYXNoPSItMzM1MjQyNTM5Ig==\n【title="Harbor"】的加密结果为dGl0bGU9IkhhcmJvciI=\n【title="XVR Login"】的加密结果为dGl0bGU9IlhWUiBMb2dpbiI=\n【app="Metabase"】的加密结果为YXBwPSJNZXRhYmFzZSI=\n【app="vmware-Workspace-ONE-Access" || app="vmware-Identity-Manager"】的加密结果为YXBwPSJ2bXdhcmUtV29ya3NwYWNlLU9ORS1BY2Nlc3MiIHx8IGFwcD0idm13YXJlLUlkZW50aXR5LU1hbmFnZXIi\n【app="APACHE-Spark-Jobs"】的加密结果为YXBwPSJBUEFDSEUtU3BhcmstSm9icyI=\n【header="thinkphp"】的加密结果为aGVhZGVyPSJ0aGlua3BocCI=\n【app="Ruijie-EG易网关" && port="4430"】的加密结果为YXBwPSJSdWlqaWUtRUfmmJPnvZHlhbMiICYmIHBvcnQ9IjQ0MzAi\n【app="MSA/1.0"】的加密结果为YXBwPSJNU0EvMS4wIg==\n【title="Vigor 2960"】的加密结果为dGl0bGU9IlZpZ29yIDI5NjAi\n【app="D_Link-DCS-2530L"】的加密结果为YXBwPSJEX0xpbmstRENTLTI1MzBMIg==\n【title="孚盟云 "】的加密结果为dGl0bGU9IuWtmuebn+S6kSAi\n【app="VOS-VOS3000"】的加密结果为YXBwPSJWT1MtVk9TMzAwMCI=\n【body="kkFileView"】的加密结果为Ym9keT0ia2tGaWxlVmlldyI=\n【title="WSO2 Management Console"】的加密结果为dGl0bGU9IldTTzIgTWFuYWdlbWVudCBDb25zb2xlIg==\n""")
+encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n【icon_hash="-335242539"】的加密结果为aWNvbl9oYXNoPSItMzM1MjQyNTM5Ig==\n【title="Harbor"】的加密结果为dGl0bGU9IkhhcmJvciI=\n【title="XVR Login"】的加密结果为dGl0bGU9IlhWUiBMb2dpbiI=\n【app="Metabase"】的加密结果为YXBwPSJNZXRhYmFzZSI=\n【app="vmware-Workspace-ONE-Access" || app="vmware-Identity-Manager"】的加密结果为YXBwPSJ2bXdhcmUtV29ya3NwYWNlLU9ORS1BY2Nlc3MiIHx8IGFwcD0idm13YXJlLUlkZW50aXR5LU1hbmFnZXIi\n【app="APACHE-Spark-Jobs"】的加密结果为YXBwPSJBUEFDSEUtU3BhcmstSm9icyI=\n【header="thinkphp"】的加密结果为aGVhZGVyPSJ0aGlua3BocCI=\n【app="Ruijie-EG易网关" && port="4430"】的加密结果为YXBwPSJSdWlqaWUtRUfmmJPnvZHlhbMiICYmIHBvcnQ9IjQ0MzAi\n【app="MSA/1.0"】的加密结果为YXBwPSJNU0EvMS4wIg==\n【title="Vigor 2960"】的加密结果为dGl0bGU9IlZpZ29yIDI5NjAi\n【app="D_Link-DCS-2530L"】的加密结果为YXBwPSJEX0xpbmstRENTLTI1MzBMIg==\n【title="孚盟云 "】的加密结果为dGl0bGU9IuWtmuebn+S6kSAi\n【app="VOS-VOS3000"】的加密结果为YXBwPSJWT1MtVk9TMzAwMCI=\n【body="kkFileView"】的加密结果为Ym9keT0ia2tGaWxlVmlldyI=\n【title="WSO2 Management Console"】的加密结果为dGl0bGU9IldTTzIgTWFuYWdlbWVudCBDb25zb2xlIg==\n【body="SolarView Compact" && title=="Top"】的加密结果为Ym9keT0iU29sYXJWaWV3IENvbXBhY3QiICYmIHRpdGxlPT0iVG9wIg==\n【body="FortiToken clock drift detected"】的加密结果为Ym9keT0iRm9ydGlUb2tlbiBjbG9jayBkcmlmdCBkZXRlY3RlZCI=\n【app="Microsoft-Exchange"】的加密结果为YXBwPSJNaWNyb3NvZnQtRXhjaGFuZ2Ui\n""")
 encode_text2.see(END)
 encode_text2.config(state="disabled")
 def base64_dec():

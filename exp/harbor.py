@@ -32,7 +32,7 @@ def get_harbor_addr():
 def harbor_gui():
     harbor = tk.Tk()
     harbor.geometry("910x450")
-    harbor.title("Harbor 未授权创建管理员漏洞一把梭")
+    harbor.title("Harbor 未授权创建管理员漏洞一把梭(存在漏洞的比较少，但是fofa可以采集到14万的网址，还是添加进来了)")
     harbor.resizable(0, 0)
     harbor.iconbitmap('logo.ico')
     global harbor_text

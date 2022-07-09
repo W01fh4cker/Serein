@@ -1,4 +1,9 @@
+####  V2.3 （2022.7.9）
+
+- 增加了`SolarView RCE漏洞(CVE-2022-29303)一把梭`、`Fortinet任意文件读取漏洞(CVE-2018-13379)一把梭`、`Microsoft Exchange RCE(CVE-2021-34473)一把梭`、`Citrix远程代码执行漏洞(CVE_2019_19781)一把梭`模块。
+
 ####  V2.2 （2022.7.6）
+
 - 增加了`WSO2远程命令执行漏洞(CVE-2022-29464)一把梭`模块。
 ####  V2.1 （2022.7.5）  
 - 实现`Serein`的`Linux`化，并对其作了翻译。项目地址：http://github.com/W01fh4cker/Serein_Linux 。
