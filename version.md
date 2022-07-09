@@ -1,6 +1,7 @@
 ####  V2.3 （2022.7.9）
 
-- 增加了`SolarView RCE漏洞(CVE-2022-29303)一把梭`、`Fortinet任意文件读取漏洞(CVE-2018-13379)一把梭`、`Microsoft Exchange RCE(CVE-2021-34473)一把梭`、`Citrix远程代码执行漏洞(CVE_2019_19781)一把梭`模块。
+- 增加了`SolarView RCE漏洞(CVE-2022-29303)一把梭`、`Fortinet任意文件读取漏洞(CVE-2018-13379)一把梭`、`Microsoft Exchange RCE(CVE-2021-34473)一把梭`、`Citrix远程代码执行漏洞(CVE_2019_19781)一把梭`模块；
+- 修复了`shodan`只能采集前`100`条的`bug`。
 
 ####  V2.2 （2022.7.6）
 
