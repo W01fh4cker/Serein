@@ -34,7 +34,7 @@ def yyu8_testsql_gui():
     yyu8_testsql_text = scrolledtext.ScrolledText(yyu8_testsql,width=123, height=25)
     yyu8_testsql_text.grid(row=0, column=0, padx=10, pady=10)
     yyu8_testsql_text.see(END)
-    addrs = get_yyu8_addr()
+    addrs = get_yyu8_testsql_addr()
     max_thread_num = 20
     executor = ThreadPoolExecutor(max_workers=max_thread_num)
     for addr in addrs:
