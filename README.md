@@ -12,7 +12,9 @@
 [版本更新说明 | Version Update Instructions](https://github.com/W01fh4cker/Serein/blob/main/version.md)
 
 # Latest-Interface-Display | 最新版页面展示 
-![](https://s2.loli.net/2022/07/09/n3riJAeLbElmFM1.png)
+![](https://s2.loli.net/2022/07/12/qSE9jJOWMYa7LK2.png)
+
+![](https://s2.loli.net/2022/07/12/Wpn8liFtSYkEGQm.png)
 
 # Exploit-Example | 利用示例
 
