@@ -1,3 +1,7 @@
+####  V2.4 （2022.7.13）
+
+- 增加了`Zyxel USG 远程命令执行漏洞一把梭`、`Apache Hadoop Yarn RPC 远程命令执行漏洞一把梭`、`WordPress任意文件读取漏洞(CVE-2022-1119)一把梭`、`VoIPmonitor 远程命令执行漏洞(CVE-2021-30461)一把梭`、`ClickHouse API 数据库接口未授权访问漏洞一把梭`、`泛微OA HrmCareerApplyPerView.jsp SQL注入漏洞一把梭`、`泛微OA SignatureDownLoad 任意文件读取漏洞一把梭`、`Rails Accept 任意文件读取漏洞(CVE-2019-5418)一把梭`模块。
+
 ####  V2.3 （2022.7.12）
 
 - 增加了`锐捷EG易网关 phpinfo.view.php 信息泄露漏洞一把梭`、`Tenda W15E企业级路由器配置文件泄漏漏洞一把梭`、`Sapido 多款路由器 远程命令执行漏洞一把梭`模块。
