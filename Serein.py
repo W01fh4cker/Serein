@@ -39,6 +39,10 @@ from exp.clickhouse_unauthorized_visit import *
 from exp.Weaver_HrmCareerApplyPerView_sql import *
 from exp.E_Weaver_any_file_read import *
 from exp.Rails_anyfile_read_cve_2019_5418 import *
+from exp.Landray_oa_treexml_rce import *
+from exp.xiaomi_wifi_anyfile_read_cve_2019_18371 import *
+from exp.Dap_2020_anyfile_read_cve_2021_27250 import *
+from exp.Franklin_Fueling_Systems_anyfile_read_cve_2021_46417 import *
 import json
 import threading
 from tkinter.messagebox import *
@@ -293,64 +297,73 @@ def hunter_query():
     i = 0
     api_key = hunter_api_key
     query_sentence = text8.get()
-    hunter_pagenum_to_query = text9.get()
-    hunter_per_page_size = text10.get()
+    hunter_ts = text9.get()
+    hunter_ts = int(hunter_ts)
+    hunter_pagenum_to_query = hunter_ts / 100
+    hunter_num = hunter_pagenum_to_query + 1
+    hunter_num = int(hunter_num)
     hunter_asset_type = text11.get()
     hunter_start_time = text13.get()
     hunter_end_time = text14.get()
     hunter_status_code = text12.get()
-    url = 'https://hunter.qianxin.com/openApi/search?api-key=' + str(api_key) + '&search=' + str(
-        query_sentence) + '&page=' + str(hunter_pagenum_to_query) + '&page_size=' + str(hunter_per_page_size) + '&is_web=' + str(
-        hunter_asset_type) + '&start_time=' + str(hunter_start_time) + '&end_time' + str(hunter_end_time) + '&status_code=' + str(hunter_status_code)
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36',
-        'Cookie': hunter_cookie
-    }
-    resp = requests.get(url=url, headers=headers)
-    global res
-    res = json.loads((resp.content).decode('utf-8'))
-    print(res)
-    global first_url
-    hunter_res_num = res["data"]["total"]
-    if hunter_res_num == "0":
-        text15.insert(END, chars=f"【*】当前共查询到{hunter_res_num}条数据！，请检查您base64加密前的语句并重启软件查询\n")
-        text15.see(END)
-    else:
-        text15.insert(END, chars=f"【*】当前共查询到{hunter_res_num}条数据！\n")
-        text15.see(END)
-    for i in range(len(res["data"]["arr"])):
-        if (hunter_res_num == 0):
-            text15.insert(END, chars="【*】当前共查询到0条数据。\n")
+    for j in range(1,hunter_num):
+        url = 'https://hunter.qianxin.com/openApi/search?api-key=' + str(api_key) + '&search=' + str(
+            query_sentence) + '&page=' + str(j) + '&page_size=100' + '&is_web=' + str(
+            hunter_asset_type) + '&start_time=' + str(hunter_start_time) + '&end_time' + str(hunter_end_time) + '&status_code=' + str(hunter_status_code)
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36',
+            'Cookie': hunter_cookie
+        }
+        resp = requests.get(url=url, headers=headers)
+        global res
+        res = json.loads((resp.content).decode('utf-8'))
+        global first_url
+        hunter_res_num = res["data"]["total"]
+        if hunter_res_num == "0":
+            text15.insert(END, chars=f"【*】当前共查询到0条数据！，请检查您base64加密前的语句并重启软件查询\n")
             text15.see(END)
-            break
         else:
-            try:
-                its_ip = res["data"]["arr"][i]["ip"]
-                its_url = res["data"]["arr"][i]["url"]
-                if its_ip == "违规数据无法查看" or its_url == "违规数据无法查看":
-                    pass
-                else:
-                    with open("修正后的url.txt","a+") as m:
-                        m.write(its_url + "\n")
-                    with open("host.txt","a+") as m:
-                        m.write(its_ip + "\n")
-                    if its_ip is None:
+            pass
+        for i in range(len(res["data"]["arr"])):
+            if (hunter_res_num == 0):
+                text15.insert(END, chars="【*】当前共查询到0条数据。\n")
+                text15.see(END)
+                break
+            else:
+                try:
+                    its_ip = res["data"]["arr"][i]["ip"]
+                    its_url = res["data"]["arr"][i]["url"]
+                    if its_ip == "违规数据无法查看" or its_url == "违规数据无法查看":
                         pass
                     else:
-                        first_url = str(its_url)
-            except:
-                i = i + 1
-    consume_quota = res["data"]["consume_quota"]
-    rest_quota = res["data"]["rest_quota"]
-    text17.insert(END,"【+】" + consume_quota + "\n【+】" + rest_quota + "\n")
-    showinfo('保存成功', '文件就在您的当前文件夹下，urls.txt是采集的所有url合集，修正后的url.txt里的url是全部加了http/https头的。')
-    text15.insert(END, chars="【+】保存成功！文件就在您的当前文件夹下，【urls.txt】是采集的所有url合集，【修正后的url.txt】里的url是全部加了http/https头的。\n")
-    text15.see(END)
+                        with open("修正后的url.txt","a+") as m:
+                            m.write(its_url + "\n")
+                        with open("host.txt","a+") as m:
+                            m.write(its_ip + "\n")
+                        if its_ip is None:
+                            pass
+                        else:
+                            first_url = str(its_url)
+                except:
+                    i = i + 1
+                time.sleep(0.2)
+        time.sleep(0.2)
+    if j == hunter_pagenum_to_query:
+        text15.insert(END, chars=f"【*】当前共查询到{hunter_res_num}条数据！\n")
+        text15.see(END)
+        consume_quota = res["data"]["consume_quota"]
+        rest_quota = res["data"]["rest_quota"]
+        text17.insert(END,"【+】" + consume_quota + "\n【+】" + rest_quota + "\n")
+        showinfo('保存成功', '文件就在您的当前文件夹下，urls.txt是采集的所有url合集，修正后的url.txt里的url是全部加了http/https头的。')
+        text15.insert(END, chars="【+】保存成功！文件就在您的当前文件夹下，【urls.txt】是采集的所有url合集，【修正后的url.txt】里的url是全部加了http/https头的。\n")
+        text15.see(END)
+    else:
+        pass
 def check_code():
     if (res["code"] == 200):
         pass
     elif (res["code"] == 401):
-        text15.insert(END,"【×】起始/结束时间参数格式错误，格式应为2021-01-01 00:00:00\n")
+        text15.insert(END,"【×】起始/结束时间参数格式错误，格式应为2021-07-17 00:00:00\n")
         text15.see(END)
     elif (res["code"] == 401):
         text15.insert(END,"【×】无权限，请检查您的api-key和cookie是否填写正确！\n")
@@ -422,7 +435,6 @@ def thread_shodan():
     SHODAN_API_KEY = getShodanConfig("data","shodan_api_key")
     max_thread_num = 100
     executor = ThreadPoolExecutor(max_workers=max_thread_num)
-    # for addr in addrs:
     future = executor.submit(shodan_search, SHODAN_API_KEY)
 group1 = ttk.LabelFrame(frameOne, text="fofa搜索模块",bootstyle="info")
 group1.grid(row=0,column=0,padx=10, pady=10)
@@ -529,22 +541,19 @@ group9.grid(row=0,column=0,padx=5, pady=5)
 hunter_query_sentence = tk.StringVar(group9, value="填写加密后的hunter语句")
 text8 = ttk.Entry(group9, bootstyle="success", width=45, textvariable=hunter_query_sentence)
 text8.grid(row=0, column=0, padx=5, pady=5)
-hunter_pagenum_to_query = tk.StringVar(group9, value="填写想要查询数据的页码")
+hunter_pagenum_to_query = tk.StringVar(group9, value="填写想要查询数据的条数")
 text9 = ttk.Entry(group9, bootstyle="success", width=35, textvariable=hunter_pagenum_to_query)
 text9.grid(row=0, column=1, padx=5, pady=5)
-hunter_per_page_size = tk.StringVar(group9, value="填写想要查询这一页数据的条数")
-text10 = ttk.Entry(group9, bootstyle="success", width=35, textvariable=hunter_per_page_size)
-text10.grid(row=0, column=2, padx=5, pady=5)
 hunter_asset_type = tk.StringVar(group9, value="填写资产类型，1代表”web资产“，2代表”非web资产“，3代表”全部“")
-text11 = ttk.Entry(group9, bootstyle="success", width=52, textvariable=hunter_asset_type)
-text11.grid(row=0, column=3, padx=5, pady=5)
+text11 = ttk.Entry(group9, bootstyle="success", width=91, textvariable=hunter_asset_type)
+text11.grid(row=0, column=2,columnspan=2,padx=5, pady=5)
 hunter_status_code_select = tk.StringVar(group9, value="状态码列表，以逗号分隔，如”200“")
 text12 = ttk.Entry(group9, bootstyle="success", width=45, textvariable=hunter_status_code_select)
 text12.grid(row=1, column=0, padx=5, pady=5)
-hunter_start_time = tk.StringVar(group9, value="开始时间，格式为2021-01-01 00:00:00")
+hunter_start_time = tk.StringVar(group9, value="开始时间，格式为2021-07-17 00:00:00")
 text13 = ttk.Entry(group9, bootstyle="success", width=35, textvariable=hunter_start_time)
 text13.grid(row=1, column=1, padx=5, pady=5)
-hunter_end_time = tk.StringVar(group9, value="结束时间，格式为2022-01-01 00:00:00")
+hunter_end_time = tk.StringVar(group9, value="结束时间，格式为2022-07-17 00:00:00")
 text14 = ttk.Entry(group9, bootstyle="success", width=35, textvariable=hunter_end_time)
 text14.grid(row=1, column=2, padx=5, pady=5)
 hunter_query_button = ttk.Button(group9,text="点击查询",command=hunter,width=51,bootstyle="primary")
@@ -709,6 +718,14 @@ button37 = ttk.Button(group3,text="泛微OA HrmCareerApplyPerView.jsp SQL注入�
 button37.grid(row=11,column=0,columnspan=2,padx=5,pady=5)
 button38 = ttk.Button(group3,text="Rails Accept 任意文件读取漏洞(CVE-2019-5418)一把梭",command=Rails_anyfile_read_cve_2019_5418_gui,width=45,bootstyle="success")
 button38.grid(row=11,column=2,columnspan=2,padx=5,pady=5)
+button39 = ttk.Button(group3,text="蓝凌OA treexml.tmpl 远程命令执行漏洞一把梭",command=Landray_oa_treexml_rce_gui,width=45,bootstyle="success")
+button39.grid(row=11,column=4,columnspan=2,padx=5,pady=5)
+button40 = ttk.Button(group3,text="小米路由器任意文件读取漏洞(CVE-2019-18371)一把梭",command=xiaomi_wifi_anyfile_read_cve_2019_18371_gui,width=45,bootstyle="warning")
+button40.grid(row=12,column=0,columnspan=2,padx=5,pady=5)
+button41 = ttk.Button(group3,text="D-LINK DAP-2020任意文件读取漏洞(CVE-2021-27250)一把梭",command=Dap_2020_anyfile_read_cve_2021_27250_gui,width=45,bootstyle="warning")
+button41.grid(row=12,column=2,columnspan=2,padx=5,pady=5)
+button42 = ttk.Button(group3,text="Franklin任意文件读取漏洞(CVE-2021-46417)一把梭",command=Franklin_Fueling_Systems_anyfile_read_cve_2021_46417_gui,width=45,bootstyle="warning")
+button42.grid(row=12,column=4,columnspan=2,padx=5,pady=5)
 notebook.add(frameThree, text='IP反查域名+权重查询')
 def ip138_chaxun(ip, ua):
     ip138_headers = {
@@ -970,7 +987,7 @@ encode_text = scrolledtext.ScrolledText(group7, width=100, height=30)
 encode_text.grid(row=2, column=0, padx=10, pady=10)
 encode_text2 = scrolledtext.ScrolledText(group8, width=98, height=36)
 encode_text2.grid(row=2, column=1, padx=10, pady=10)
-encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n【icon_hash="-335242539"】的加密结果为aWNvbl9oYXNoPSItMzM1MjQyNTM5Ig==\n【title="Harbor"】的加密结果为dGl0bGU9IkhhcmJvciI=\n【title="XVR Login"】的加密结果为dGl0bGU9IlhWUiBMb2dpbiI=\n【app="Metabase"】的加密结果为YXBwPSJNZXRhYmFzZSI=\n【app="vmware-Workspace-ONE-Access" || app="vmware-Identity-Manager"】的加密结果为YXBwPSJ2bXdhcmUtV29ya3NwYWNlLU9ORS1BY2Nlc3MiIHx8IGFwcD0idm13YXJlLUlkZW50aXR5LU1hbmFnZXIi\n【app="APACHE-Spark-Jobs"】的加密结果为YXBwPSJBUEFDSEUtU3BhcmstSm9icyI=\n【header="thinkphp"】的加密结果为aGVhZGVyPSJ0aGlua3BocCI=\n【app="Ruijie-EG易网关" && port="4430"】的加密结果为YXBwPSJSdWlqaWUtRUfmmJPnvZHlhbMiICYmIHBvcnQ9IjQ0MzAi\n【app="MSA/1.0"】的加密结果为YXBwPSJNU0EvMS4wIg==\n【title="Vigor 2960"】的加密结果为dGl0bGU9IlZpZ29yIDI5NjAi\n【app="D_Link-DCS-2530L"】的加密结果为YXBwPSJEX0xpbmstRENTLTI1MzBMIg==\n【title="孚盟云 "】的加密结果为dGl0bGU9IuWtmuebn+S6kSAi\n【app="VOS-VOS3000"】的加密结果为YXBwPSJWT1MtVk9TMzAwMCI=\n【body="kkFileView"】的加密结果为Ym9keT0ia2tGaWxlVmlldyI=\n【title="WSO2 Management Console"】的加密结果为dGl0bGU9IldTTzIgTWFuYWdlbWVudCBDb25zb2xlIg==\n【body="SolarView Compact" && title=="Top"】的加密结果为Ym9keT0iU29sYXJWaWV3IENvbXBhY3QiICYmIHRpdGxlPT0iVG9wIg==\n【body="FortiToken clock drift detected"】的加密结果为Ym9keT0iRm9ydGlUb2tlbiBjbG9jayBkcmlmdCBkZXRlY3RlZCI=\n【app="Microsoft-Exchange"】的加密结果为YXBwPSJNaWNyb3NvZnQtRXhjaGFuZ2Ui\n【app="Ruijie-EG易网关"】的加密结果为YXBwPSJSdWlqaWUtRUfmmJPnvZHlhbMi\n【title=="Tenda | Login"】的加密结果为dGl0bGU9PSJUZW5kYSB8IExvZ2luIg==\n【app="Sapido-路由器"】的加密结果为YXBwPSJTYXBpZG8t6Lev55Sx5ZmoIg==\n【title="USG FLEX"】的加密结果为dGl0bGU9IlVTRyBGTEVYIg==\n【app="APACHE-hadoop-YARN"】的加密结果为YXBwPSJBUEFDSEUtaGFkb29wLVlBUk4i\n【"Simple File List"】的加密结果为IlNpbXBsZSBGaWxlIExpc3Qi\n【"VoIPmonitor"】的加密结果为IlZvSVBtb25pdG9yIg==\n【"ClickHouse" && body="ok"】的加密结果为IkNsaWNrSG91c2UiICYmIGJvZHk9Im9rIg==\n【app="泛微-协同办公OA"】的加密结果为YXBwPSLms5vlvq4t5Y2P5ZCM5Yqe5YWsT0Ei\n【app="泛微-E-Weaver"】的加密结果为YXBwPSLms5vlvq4tRS1XZWF2ZXIi\n【title="Ruby On Rails"】的加密结果为dGl0bGU9IlJ1YnkgT24gUmFpbHMi\n""")
+encode_text2.insert(END,"""【"Confluence" && country="CN"】的加密结果为IkNvbmZsdWVuY2UiICYmIGNvdW50cnk9IkNOIg==\n【app="HIKVISION-视频监控"】的加密结果为YXBwPSJISUtWSVNJT04t6KeG6aKR55uR5o6nIg==\n【app="TDXK-通达OA"】的加密结果为YXBwPSJURFhLLemAmui+vk9BIg==\n【(body="login_box_sonicwall" || header="SonicWALL SSL-VPN Web Server") && body="SSL-VPN"】的加密结果为KGJvZHk9ImxvZ2luX2JveF9zb25pY3dhbGwiIHx8IGhlYWRlcj0iU29uaWNXQUxMIFNTTC1WUE4gV2ViIFNlcnZlciIpICYmIGJvZHk9IlNTTC1WUE4i\n【icon_hash="-335242539"】的加密结果为aWNvbl9oYXNoPSItMzM1MjQyNTM5Ig==\n【title="Harbor"】的加密结果为dGl0bGU9IkhhcmJvciI=\n【title="XVR Login"】的加密结果为dGl0bGU9IlhWUiBMb2dpbiI=\n【app="Metabase"】的加密结果为YXBwPSJNZXRhYmFzZSI=\n【app="vmware-Workspace-ONE-Access" || app="vmware-Identity-Manager"】的加密结果为YXBwPSJ2bXdhcmUtV29ya3NwYWNlLU9ORS1BY2Nlc3MiIHx8IGFwcD0idm13YXJlLUlkZW50aXR5LU1hbmFnZXIi\n【app="APACHE-Spark-Jobs"】的加密结果为YXBwPSJBUEFDSEUtU3BhcmstSm9icyI=\n【header="thinkphp"】的加密结果为aGVhZGVyPSJ0aGlua3BocCI=\n【app="Ruijie-EG易网关" && port="4430"】的加密结果为YXBwPSJSdWlqaWUtRUfmmJPnvZHlhbMiICYmIHBvcnQ9IjQ0MzAi\n【app="MSA/1.0"】的加密结果为YXBwPSJNU0EvMS4wIg==\n【title="Vigor 2960"】的加密结果为dGl0bGU9IlZpZ29yIDI5NjAi\n【app="D_Link-DCS-2530L"】的加密结果为YXBwPSJEX0xpbmstRENTLTI1MzBMIg==\n【title="孚盟云 "】的加密结果为dGl0bGU9IuWtmuebn+S6kSAi\n【app="VOS-VOS3000"】的加密结果为YXBwPSJWT1MtVk9TMzAwMCI=\n【body="kkFileView"】的加密结果为Ym9keT0ia2tGaWxlVmlldyI=\n【title="WSO2 Management Console"】的加密结果为dGl0bGU9IldTTzIgTWFuYWdlbWVudCBDb25zb2xlIg==\n【body="SolarView Compact" && title=="Top"】的加密结果为Ym9keT0iU29sYXJWaWV3IENvbXBhY3QiICYmIHRpdGxlPT0iVG9wIg==\n【body="FortiToken clock drift detected"】的加密结果为Ym9keT0iRm9ydGlUb2tlbiBjbG9jayBkcmlmdCBkZXRlY3RlZCI=\n【app="Microsoft-Exchange"】的加密结果为YXBwPSJNaWNyb3NvZnQtRXhjaGFuZ2Ui\n【app="Ruijie-EG易网关"】的加密结果为YXBwPSJSdWlqaWUtRUfmmJPnvZHlhbMi\n【title=="Tenda | Login"】的加密结果为dGl0bGU9PSJUZW5kYSB8IExvZ2luIg==\n【app="Sapido-路由器"】的加密结果为YXBwPSJTYXBpZG8t6Lev55Sx5ZmoIg==\n【title="USG FLEX"】的加密结果为dGl0bGU9IlVTRyBGTEVYIg==\n【app="APACHE-hadoop-YARN"】的加密结果为YXBwPSJBUEFDSEUtaGFkb29wLVlBUk4i\n【"Simple File List"】的加密结果为IlNpbXBsZSBGaWxlIExpc3Qi\n【"VoIPmonitor"】的加密结果为IlZvSVBtb25pdG9yIg==\n【"ClickHouse" && body="ok"】的加密结果为IkNsaWNrSG91c2UiICYmIGJvZHk9Im9rIg==\n【app="泛微-协同办公OA"】的加密结果为YXBwPSLms5vlvq4t5Y2P5ZCM5Yqe5YWsT0Ei\n【app="泛微-E-Weaver"】的加密结果为YXBwPSLms5vlvq4tRS1XZWF2ZXIi\n【title="Ruby On Rails"】的加密结果为dGl0bGU9IlJ1YnkgT24gUmFpbHMi\n【app="Landray-OA系统"】的加密结果为YXBwPSJMYW5kcmF5LU9B57O757ufIg==\n【app="小米路由器"】的加密结果为YXBwPSLlsI/nsbPot6/nlLHlmagi\n【body="DAP-1360" && body="6.05"】的加密结果为Ym9keT0iREFQLTEzNjAiICYmIGJvZHk9IjYuMDUi\n【"Franklin Fueling Systems"】的加密结果为IkZyYW5rbGluIEZ1ZWxpbmcgU3lzdGVtcyI=\n""")
 encode_text2.see(END)
 encode_text2.config(state="disabled")
 def base64_dec():

@@ -1,3 +1,8 @@
+####  V2.5 （2022.7.17）
+
+- 增加了`蓝凌OA treexml.tmpl 远程命令执行漏洞一把梭`、`小米路由器任意文件读取漏洞(CVE-2019-18371)一把梭`、`D-LINK DAP-2020任意文件读取漏洞(CVE-2021-27250)一把梭`、`Franklin任意文件读取漏洞(CVE-2021-46417)一把梭`模块。
+- 解决了`Hunter`只能一页一页查询、每页只能查询`100`条的问题。
+
 ####  V2.4 （2022.7.13）
 
 - 增加了`Zyxel USG 远程命令执行漏洞一把梭`、`Apache Hadoop Yarn RPC 远程命令执行漏洞一把梭`、`WordPress任意文件读取漏洞(CVE-2022-1119)一把梭`、`VoIPmonitor 远程命令执行漏洞(CVE-2021-30461)一把梭`、`ClickHouse API 数据库接口未授权访问漏洞一把梭`、`泛微OA HrmCareerApplyPerView.jsp SQL注入漏洞一把梭`、`泛微OA SignatureDownLoad 任意文件读取漏洞一把梭`、`Rails Accept 任意文件读取漏洞(CVE-2019-5418)一把梭`模块。

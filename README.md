@@ -2,7 +2,10 @@
 <p align="center"><img src="https://socialify.git.ci/W01fh4cker/Serein/image?description=1&descriptionEditable=%E4%B8%80%E6%AC%BE%E5%9B%BE%E5%BD%A2%E5%8C%96%E3%80%81%E6%89%B9%E9%87%8F%E9%87%87%E9%9B%86url%E3%80%81%E6%89%B9%E9%87%8F%E5%AF%B9%E9%87%87%E9%9B%86%E7%9A%84url%E8%BF%9B%E8%A1%8C%E5%90%84%E7%A7%8Dnday%E6%A3%80%E6%B5%8B%E7%9A%84%E5%B7%A5%E5%85%B7%E3%80%82%E5%8F%AF%E7%94%A8%E4%BA%8Esrc%E6%8C%96%E6%8E%98%E3%80%81cnvd%E6%8C%96%E6%8E%98%E3%80%810day%E5%88%A9%E7%94%A8%E3%80%81%E6%89%93%E9%80%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AD%A6%E5%99%A8%E5%BA%93%E7%AD%89%E5%9C%BA%E6%99%AF%E3%80%82&font=Bitter&forks=1&issues=1&language=1&logo=https%3A%2F%2Fs2.loli.net%2F2022%2F06%2F25%2FgUAh2V5CiD96y8G.jpg&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Light" /></p>
 
 # Linux English version is online! | Linux英文版版本上线！ 
-## 可以移步：http://github.com/W01fh4cker/Serein_Linux
+> http://github.com/W01fh4cker/Serein_Linux
+
+![](https://s2.loli.net/2022/07/17/P1Op4cZfvTYSmoq.png)
+
 # Declaration | 声明
 
 1. 该项目仅供授权下使用，禁止使用该项目进行违法操作，否则自行承担后果，请各位遵守《中华人民共和国网络安全法》！！！
@@ -13,7 +16,7 @@
 [版本更新说明 | Version Update Instructions](https://github.com/W01fh4cker/Serein/blob/main/version.md)
 
 # Latest-Interface-Display | 最新版页面展示 
-![](https://s2.loli.net/2022/07/13/EXyTf1eYRgqZxr3.png)
+![](https://s2.loli.net/2022/07/17/6NtArnGEwKpMgRJ.png)
 
 # Exploit-Example | 利用示例
 
@@ -71,8 +74,10 @@ https://github.com/W01fh4cker/Serein/issues
 
 # To-Do List | 要做的事儿
 1. **完善权重查询模块。当我们一键梭哈完之后，想提交补天等漏洞平台的时候，由于平台有权重要求，所以要对含有漏洞的网站需要进行`ip-->domain`，然后反查域名，利用多个查询接口进行权重查询，筛选出符合权重要求的网站，导出出来。**
-2. （优先）添加其他的搜索引擎，如：`Censys`、`Zoomeye`、`Quake`等。 
-3.  其他的暂时还没想到，如果小伙伴们有什么想法可以直接在`issues`里面提出    
+2. （优先）添加其他的搜索引擎，如：`Censys`、`Zoomeye`、`Quake`等。
+3. 增加代理模式。 
+4. 其他的暂时还没想到，如果小伙伴们有什么想法可以直接在`issues`里面提出。
+
 # My Community | W01fh4cker的兴趣交流社区  
 - `https://discord.gg/n2c5Eaw4Jx`
 
