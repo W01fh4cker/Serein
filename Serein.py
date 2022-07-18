@@ -287,8 +287,8 @@ def thread_fofa():
     t.setDaemon(True)
     t.start()
 def hunter_query():
-    showinfo('开始采集', '程序开始采集url，请耐心等待，不要关闭程序。')
-    text15.insert(END, chars="【√】程序开始采集url，请耐心等待，不要关闭程序。\n")
+    showinfo('开始采集', '程序开始采集url，中间会可能出现卡顿现象，请耐心等待，不要关闭程序。')
+    text15.insert(END, chars="【√】程序开始采集url，中间会可能出现卡顿现象，请耐心等待，不要关闭程序。\n")
     text15.see(END)
     hunter_saveit_twice()
     global i
@@ -300,76 +300,86 @@ def hunter_query():
     hunter_ts = text9.get()
     hunter_ts = int(hunter_ts)
     hunter_pagenum_to_query = hunter_ts / 100
-    hunter_num = hunter_pagenum_to_query + 1
+    if hunter_pagenum_to_query < 1:
+        hunter_num = 2
+        page_size = hunter_ts
+    else:
+        hunter_num = hunter_pagenum_to_query + 1
+        page_size = 100
     hunter_num = int(hunter_num)
     hunter_asset_type = text11.get()
     hunter_start_time = text13.get()
     hunter_end_time = text14.get()
     hunter_status_code = text12.get()
-    for j in range(1,hunter_num):
-        url = 'https://hunter.qianxin.com/openApi/search?api-key=' + str(api_key) + '&search=' + str(
-            query_sentence) + '&page=' + str(j) + '&page_size=100' + '&is_web=' + str(
-            hunter_asset_type) + '&start_time=' + str(hunter_start_time) + '&end_time' + str(hunter_end_time) + '&status_code=' + str(hunter_status_code)
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36',
-            'Cookie': hunter_cookie
-        }
-        resp = requests.get(url=url, headers=headers)
-        global res
-        res = json.loads((resp.content).decode('utf-8'))
-        global first_url
-        hunter_res_num = res["data"]["total"]
-        if hunter_res_num == "0":
-            text15.insert(END, chars=f"【*】当前共查询到0条数据！，请检查您base64加密前的语句并重启软件查询\n")
-            text15.see(END)
-        else:
-            pass
-        for i in range(len(res["data"]["arr"])):
-            if (hunter_res_num == 0):
-                text15.insert(END, chars="【*】当前共查询到0条数据。\n")
+    try:
+        for j in range(1,hunter_num):
+            url = 'https://hunter.qianxin.com/openApi/search?api-key=' + str(api_key) + '&search=' + str(
+                query_sentence) + '&page=' + str(j) + '&page_size=' + str(page_size) + '&is_web=' + str(
+                hunter_asset_type) + '&start_time=' + str(hunter_start_time) + '&end_time' + str(hunter_end_time) + '&status_code=' + str(hunter_status_code)
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36',
+                'Cookie': hunter_cookie
+            }
+            resp = requests.get(url=url, headers=headers)
+            global res
+            res = json.loads((resp.content).decode('utf-8'))
+            global first_url
+            hunter_res_num = res["data"]["total"]
+            if hunter_res_num == "0":
+                text15.insert(END, chars=f"【*】当前共查询到0条数据，请检查您base64加密前的语句并重启软件查询\n")
                 text15.see(END)
-                break
             else:
-                try:
-                    its_ip = res["data"]["arr"][i]["ip"]
-                    its_url = res["data"]["arr"][i]["url"]
-                    if its_ip == "违规数据无法查看" or its_url == "违规数据无法查看":
-                        pass
-                    else:
-                        with open("修正后的url.txt","a+") as m:
-                            m.write(its_url + "\n")
-                        with open("host.txt","a+") as m:
-                            m.write(its_ip + "\n")
-                        if its_ip is None:
+                pass
+            for i in range(len(res["data"]["arr"])):
+                if (hunter_res_num == 0):
+                    text15.insert(END, chars="【*】当前共查询到0条数据。\n")
+                    text15.see(END)
+                    break
+                else:
+                    try:
+                        its_ip = res["data"]["arr"][i]["ip"]
+                        its_url = res["data"]["arr"][i]["url"]
+                        if its_ip == "违规数据无法查看" or its_url == "违规数据无法查看":
                             pass
                         else:
-                            first_url = str(its_url)
-                except:
-                    i = i + 1
-                time.sleep(0.2)
-        time.sleep(0.2)
-        if j == hunter_pagenum_to_query:
-            text15.insert(END, chars=f"【*】当前共查询到{hunter_res_num}条数据！\n")
-            text15.see(END)
-            consume_quota = res["data"]["consume_quota"]
-            rest_quota = res["data"]["rest_quota"]
-            text17.insert(END,"【+】" + consume_quota + "\n【+】" + rest_quota + "\n")
-            showinfo('保存成功', '文件就在您的当前文件夹下，urls.txt是采集的所有url合集，修正后的url.txt里的url是全部加了http/https头的。')
-            text15.insert(END, chars="【+】保存成功！文件就在您的当前文件夹下，【urls.txt】是采集的所有url合集，【修正后的url.txt】里的url是全部加了http/https头的。\n")
-            text15.see(END)
-    else:
-        pass
+                            with open("修正后的url.txt","a+") as m:
+                                m.write(its_url + "\n")
+                            with open("host.txt","a+") as m:
+                                m.write(its_ip + "\n")
+                            if its_ip is None:
+                                pass
+                            else:
+                                first_url = str(its_url)
+                    except:
+                        i = i + 1
+                    time.sleep(0.2)
+            time.sleep(0.2)
+            if j == hunter_pagenum_to_query:
+                text15.insert(END, chars=f"【*】当前共查询到{hunter_res_num}条数据！\n")
+                text15.see(END)
+                consume_quota = res["data"]["consume_quota"]
+                rest_quota = res["data"]["rest_quota"]
+                text17.insert(END,"【+】" + consume_quota + "\n【+】" + rest_quota + "\n")
+                showinfo('保存成功', '文件就在您的当前文件夹下，urls.txt是采集的所有url合集，修正后的url.txt里的url是全部加了http/https头的。')
+                text15.insert(END, chars="【+】保存成功！文件就在您的当前文件夹下，【urls.txt】是采集的所有url合集，【修正后的url.txt】里的url是全部加了http/https头的。\n")
+                text15.see(END)
+            else:
+                pass
+    except Exception as hunter_error:
+        showerror("出错了！","报错内容："+ str(hunter_error) + "\n，如果您无法解决，请立即联系微信W01fh4cker！")
+        text15.insert(END, chars="【×】出错了！报错内容："+ str(hunter_error) + "，如果您无法解决，请立即联系微信W01fh4cker！")
+        text15.see(END)
 def check_code():
     if (res["code"] == 200):
         pass
     elif (res["code"] == 401):
-        text15.insert(END,"【×】起始/结束时间参数格式错误，格式应为2021-07-17 00:00:00\n")
+        text15.insert(END,"\n【×】起始/结束时间参数格式错误，格式应为2021-07-17 00:00:00\n")
         text15.see(END)
     elif (res["code"] == 401):
-        text15.insert(END,"【×】无权限，请检查您的api-key和cookie是否填写正确！\n")
+        text15.insert(END,"\n【×】无权限，请检查您的api-key和cookie是否填写正确！\n")
         text15.see(END)
     else:
-        text15.insert(END,"【×】其他错误，请立即联系微信W01fh4cker\n")
+        text15.insert(END,"\n【×】其他错误，请立即联系微信W01fh4cker\n")
         text15.see(END)
 def save_url():
     with open("修正后的url.txt", 'a+', encoding='utf-8') as f:
