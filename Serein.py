@@ -348,15 +348,15 @@ def hunter_query():
                     i = i + 1
                 time.sleep(0.2)
         time.sleep(0.2)
-    if j == hunter_pagenum_to_query:
-        text15.insert(END, chars=f"【*】当前共查询到{hunter_res_num}条数据！\n")
-        text15.see(END)
-        consume_quota = res["data"]["consume_quota"]
-        rest_quota = res["data"]["rest_quota"]
-        text17.insert(END,"【+】" + consume_quota + "\n【+】" + rest_quota + "\n")
-        showinfo('保存成功', '文件就在您的当前文件夹下，urls.txt是采集的所有url合集，修正后的url.txt里的url是全部加了http/https头的。')
-        text15.insert(END, chars="【+】保存成功！文件就在您的当前文件夹下，【urls.txt】是采集的所有url合集，【修正后的url.txt】里的url是全部加了http/https头的。\n")
-        text15.see(END)
+        if j == hunter_pagenum_to_query:
+            text15.insert(END, chars=f"【*】当前共查询到{hunter_res_num}条数据！\n")
+            text15.see(END)
+            consume_quota = res["data"]["consume_quota"]
+            rest_quota = res["data"]["rest_quota"]
+            text17.insert(END,"【+】" + consume_quota + "\n【+】" + rest_quota + "\n")
+            showinfo('保存成功', '文件就在您的当前文件夹下，urls.txt是采集的所有url合集，修正后的url.txt里的url是全部加了http/https头的。')
+            text15.insert(END, chars="【+】保存成功！文件就在您的当前文件夹下，【urls.txt】是采集的所有url合集，【修正后的url.txt】里的url是全部加了http/https头的。\n")
+            text15.see(END)
     else:
         pass
 def check_code():
