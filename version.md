@@ -1,6 +1,6 @@
 ####  V2.6 （2022.7.18）
 
-- 增加了`泛微Eoffice未授权访问一把梭`、`Zabbix_popup.php注入漏洞一把梭`、`Zabbix4.4_未授权访问一把梭`模块。
+- 增加了`泛微Eoffice未授权访问一把梭`、`Zabbix_popup.php注入漏洞一把梭`、`Zabbix4.4_未授权访问一把梭`、`Apache Spark RCE漏洞(CVE-2022-33891)一把梭`模块。
 - 修复了`Hunter`查询`bug`。
 ####  V2.5 （2022.7.17）
 
