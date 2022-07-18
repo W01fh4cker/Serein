@@ -50,7 +50,8 @@
 
 **我已经录制了使用视频，并且上传到了B站：https://www.bilibili.com/video/bv1Dv4y137Lu**
 
-1. ```python
+1. **需要`python3.7~3.9`**
+   ```python
    git clone https://github.com/W01fh4cker/Serein.git
    cd Serein
    pip3 install -r requirements.txt
