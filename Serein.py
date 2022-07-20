@@ -319,7 +319,7 @@ def hunter_query():
         for j in range(1,hunter_num):
             url = 'https://hunter.qianxin.com/openApi/search?api-key=' + str(api_key) + '&search=' + str(
                 query_sentence) + '&page=' + str(j) + '&page_size=' + str(page_size) + '&is_web=' + str(
-                hunter_asset_type) + '&start_time=' + str(hunter_start_time) + '&end_time' + str(hunter_end_time) + '&status_code=' + str(hunter_status_code)
+                hunter_asset_type) + '&start_time=' + str(hunter_start_time) + '&end_time=' + str(hunter_end_time) + '&status_code=' + str(hunter_status_code)
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36',
                 'Cookie': hunter_cookie
