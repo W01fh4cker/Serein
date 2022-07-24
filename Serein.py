@@ -236,7 +236,7 @@ def fofa():
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36'
         }
         url = f"https://fofa.info/api/v1/search/all?email={email_r}&key={key_r}&qbase64={fofa_yf}&size={fofa_ts}".format()
-        resp = requests.get(url, headers)
+        resp = requests.get(url=url, headers=headers)
         if resp.status_code == -1:
             showerror('出错了！', '账号信息有误。请检查您的email和key是否填写正确！')
             text3.insert(END, chars="【×】出错了！账号信息有误,请检查您的email和key是否填写正确！\n")
