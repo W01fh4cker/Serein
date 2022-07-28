@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 import requests
 import tkinter as tk
 from tkinter import scrolledtext
