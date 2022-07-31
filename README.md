@@ -83,5 +83,7 @@ https://github.com/W01fh4cker/Serein/issues
 - `https://discord.gg/n2c5Eaw4Jx`
 
 ![image](https://user-images.githubusercontent.com/101872898/173513465-5c43767a-5dcd-4aa5-83ee-d7ea5c757bbb.png)  
+![](https://s2.loli.net/2022/07/31/8M2LSNuHdwTvc53.jpg)
+
 # Star Growth Curve | Star增长曲线  
 [![Stargazers over time](https://starchart.cc/W01fh4cker/Serein.svg)](https://starchart.cc/W01fh4cker/Serein)
