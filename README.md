@@ -8,15 +8,20 @@
 
 # Declaration | 声明
 
-1. 该项目仅供授权下使用，禁止使用该项目进行违法操作，否则自行承担后果，请各位遵守《中华人民共和国网络安全法》！！！
-2. 由于是短时间熬夜所写，头脑昏昏，料想会有不少错误，欢迎指出，我的联系方式在下方已经贴出，不胜感激！  
-3. **计划七月份每天增加一个漏洞利用模块，所以欢迎`star/fork`，您的每一个`star`和`fork`都是我前进的动力！**
-# Version | 版本  
+- 该项目仅供授权下使用，禁止使用该项目进行违法操作，否则自行承担后果，请各位遵守《中华人民共和国网络安全法》！！！
 
-[版本更新说明 | Version Update Instructions](https://github.com/W01fh4cker/Serein/blob/main/version.md)
+- 由于是短时间熬夜所写，头脑昏昏，料想会有不少错误，欢迎指出，我的联系方式在下方已经贴出，不胜感激！  
+
+- **计划七月份每天增加一个漏洞利用模块，所以欢迎`star/fork`，您的每一个`star`和`fork`都是我前进的动力！**
+
+-  :hamster:欢迎进入我的交流群一起探讨学习，群二维码在最后。:hamster:
+
+# Version | 版本
+
+- [版本更新说明 | Version Update Instructions](https://github.com/W01fh4cker/Serein/blob/main/version.md)
 
 # Latest-Interface-Display | 最新版页面展示 
-![](https://s2.loli.net/2022/07/19/ur3tsPcILoKV8lD.png)
+![](https://s2.loli.net/2022/08/02/R3PXWHwYSnVBzTl.png)
 
 # Exploit-Example | 利用示例
 

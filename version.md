@@ -1,3 +1,7 @@
+####  V2.7 （2022.8.2）
+
+- 增加了`DocCMS keyword SQL注入漏洞一把梭`、`Fikker 管理平台弱口令漏洞一把梭`、`IceWarp WebClient远程命令执行漏洞一把梭`、`Node-RED ui_base 任意文件读取漏洞一把梭`模块。
+
 ####  V2.6 （2022.7.18）
 
 - 增加了`泛微Eoffice未授权访问一把梭`、`Zabbix_popup.php注入漏洞一把梭`、`Zabbix4.4_未授权访问一把梭`、`Apache Spark RCE漏洞(CVE-2022-33891)一把梭`模块。
