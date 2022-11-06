@@ -88,8 +88,9 @@ https://github.com/W01fh4cker/Serein/issues
 # My Community | W01fh4cker的兴趣交流社区  
 - `https://discord.gg/n2c5Eaw4Jx`
 
-![image](https://user-images.githubusercontent.com/101872898/173513465-5c43767a-5dcd-4aa5-83ee-d7ea5c757bbb.png)  
-![微信交流群二维码](https://s2.loli.net/2022/08/24/6oqsBkpYLZw7SRC.jpg)
-
+![](https://w01fh4cker-img-bed.oss-cn-hangzhou.aliyuncs.com/20221106164340.png)
+## 加我微信W01fh4cker拉交流群
+![微信交流群二维码](https://w01fh4cker-img-bed.oss-cn-hangzhou.aliyuncs.com/f1f9168697afe32412c08e66f9373f8.jpg)
 # Star Growth Curve | Star增长曲线  
-[![Stargazers over time](https://starchart.cc/W01fh4cker/Serein.svg)](https://starchart.cc/W01fh4cker/Serein)
+[![Star History Chart](https://api.star-history.com/svg?repos=W01fh4cker/Serein&type=Date)](https://star-history.com/#W01fh4cker/Serein&Date)
+
