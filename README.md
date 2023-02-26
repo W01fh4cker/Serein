@@ -4,7 +4,6 @@
 # Linux English version is online! | Linux英文版版本上线！ 
 > http://github.com/W01fh4cker/Serein_Linux
 
-![](https://s2.loli.net/2022/07/17/P1Op4cZfvTYSmoq.png)
 
 # Declaration | 声明
 
